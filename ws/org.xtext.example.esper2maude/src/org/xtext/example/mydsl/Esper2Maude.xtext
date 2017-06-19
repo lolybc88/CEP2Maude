@@ -1,0 +1,38 @@
+grammar org.xtext.example.mydsl.Esper2Maude with org.eclipse.xtext.common.Terminals
+
+generate esper2Maude "http://www.xtext.org/example/mydsl/Esper2Maude"
+
+Model:
+	patterns+=Pattern*;
+	
+Pattern:
+	'@Name(' name=STRING ')'
+	'insert' 'into' event=ID
+	'select' selectEntries+=NonLastSelectEntry* selectEntry=LastSelectEntry 
+	'from'
+	('group' 'by')?
+	;
+
+NonLastSelectEntry:
+	entry=SelectEntry ','
+;
+
+LastSelectEntry:
+	entry=SelectEntry
+;
+
+SelectEntry:
+	field=Field ('as' alias=ID)? |
+	groupOp=GroupOp '(' field=Field ')' ('as' alias=ID)?	
+;
+
+Field:
+	'*' |
+	'e.'name=ID	
+;
+
+GroupOp:
+	'count' |
+	'max' |
+	'min'
+;
