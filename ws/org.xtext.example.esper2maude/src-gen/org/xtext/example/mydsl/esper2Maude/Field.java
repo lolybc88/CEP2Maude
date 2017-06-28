@@ -14,7 +14,9 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.example.mydsl.esper2Maude.Field#getName <em>Name</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.Field#getStar <em>Star</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.Field#getEventVariable <em>Event Variable</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.Field#getEventPropName <em>Event Prop Name</em>}</li>
  * </ul>
  *
  * @see org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage#getField()
@@ -24,29 +26,81 @@ import org.eclipse.emf.ecore.EObject;
 public interface Field extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Star</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Star</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage#getField_Name()
+   * @return the value of the '<em>Star</em>' attribute.
+   * @see #setStar(String)
+   * @see org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage#getField_Star()
    * @model
    * @generated
    */
-  String getName();
+  String getStar();
 
   /**
-   * Sets the value of the '{@link org.xtext.example.mydsl.esper2Maude.Field#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link org.xtext.example.mydsl.esper2Maude.Field#getStar <em>Star</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
+   * @param value the new value of the '<em>Star</em>' attribute.
+   * @see #getStar()
    * @generated
    */
-  void setName(String value);
+  void setStar(String value);
+
+  /**
+   * Returns the value of the '<em><b>Event Variable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Event Variable</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Event Variable</em>' attribute.
+   * @see #setEventVariable(String)
+   * @see org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage#getField_EventVariable()
+   * @model
+   * @generated
+   */
+  String getEventVariable();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.esper2Maude.Field#getEventVariable <em>Event Variable</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Event Variable</em>' attribute.
+   * @see #getEventVariable()
+   * @generated
+   */
+  void setEventVariable(String value);
+
+  /**
+   * Returns the value of the '<em><b>Event Prop Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Event Prop Name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Event Prop Name</em>' attribute.
+   * @see #setEventPropName(String)
+   * @see org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage#getField_EventPropName()
+   * @model
+   * @generated
+   */
+  String getEventPropName();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.esper2Maude.Field#getEventPropName <em>Event Prop Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Event Prop Name</em>' attribute.
+   * @see #getEventPropName()
+   * @generated
+   */
+  void setEventPropName(String value);
 
 } // Field

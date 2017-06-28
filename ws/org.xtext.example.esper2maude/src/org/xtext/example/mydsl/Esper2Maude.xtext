@@ -3,15 +3,100 @@ grammar org.xtext.example.mydsl.Esper2Maude with org.eclipse.xtext.common.Termin
 generate esper2Maude "http://www.xtext.org/example/mydsl/Esper2Maude"
 
 Model:
-	patterns+=Pattern*;
+	schemas+=Schema*
+	patterns+=Pattern*
+;
+
+Schema:
+	'create' 'schema' name=ID '(' prop=EventProperty? (',' props+=EventProperty)* ')'
+;
+
+EventProperty:
+	name=ID type=PROP_TYPE
+;
+
+terminal PROP_TYPE:
+	'long' |
+	'integer' |
+	'double' |
+	'string' |
+	'boolean'
+;
 	
 Pattern:
-	'@Name(' name=STRING ')'
-	'insert' 'into' event=ID
+	'@Name' '(' name=STRING ')'
+	'@Priority' '(' num=INT ')' 
+	'insert' 'into' event=Event
 	'select' selectEntries+=NonLastSelectEntry* selectEntry=LastSelectEntry 
-	'from'
-	('group' 'by')?
+	'from' 'pattern' '[' fromFilter=FilterFrom ']' ('.' win=Window )?
+	// ('group' 'by')?
 	;
+
+Window:
+	typeTime='win:time' '(' num=INT 'milliseconds' ')' |
+	typeBatch='win:time_batch' '(' num=INT 'milliseconds' ')'
+;
+
+WhereFilter:
+	(filterEventL=FilterEvent filterOpL=FilterOperator)? (timer='timer:within' '(' num=INT 'milliseconds' ')')? (filterOpR=FilterOperator filterEventR=FilterEvent)?   
+;
+	
+FilterFrom:
+	followedBy=FollowedBy |
+	'(' left=FilterFrom op=LogicalOperator right=FilterFrom ')' |
+	'every' (eventVariable=ID '=')? eventName=ID ('(' filter=FilterEvent ')')? 
+;
+
+FollowedBy:
+	left=SubFilterFollowedBy '->' right=SubFilterFollowedBy	('where' whereFilter=WhereFilter)?
+;
+
+SubFilterFollowedBy:
+	(eventVariable=ID '=')? eventName=ID ('(' filter=FilterEvent ')')? |
+	'(' filter=FilterEvent ')' |
+	every=Every
+;
+
+Every:
+	'every' (eventVariable=ID '=')? eventName=ID ('(' filter=FilterEvent ')')? |
+	'every' '(' filterFrom=FilterFrom ')'
+;
+
+FilterEvent:
+	filterLeftHandSide=FilterPart filterOp=FilterOperator filterRightHandSide=FilterPart
+;
+
+FilterPart:
+	eventPropName=ID |
+	eventVariable=ID '.' eventPropName=ID |
+	(neg='-')? num=INT ('.' dec=INT)? |
+	str=STRING |
+	t='true' |
+	f='false'
+;
+
+FilterOperator:
+	comparison=ComparisonOperator |
+	logical=LogicalOperator
+;
+
+ComparisonOperator:
+	gt='>' |
+	ge='>=' |
+	eq='=' |
+	neq='<>' |
+	lt='<' |
+	le='<='
+;
+
+LogicalOperator:
+	and='and' |
+	or='or'
+;
+
+Event:
+	name=ID
+;
 
 NonLastSelectEntry:
 	entry=SelectEntry ','
@@ -23,15 +108,15 @@ LastSelectEntry:
 
 SelectEntry:
 	field=Field ('as' alias=ID)? |
-	groupOp=GroupOp '(' field=Field ')' ('as' alias=ID)?	
+	groupOp=GROUP_OP '(' field=Field ')' ('as' alias=ID)?	
 ;
 
 Field:
-	'*' |
-	'e.'name=ID	
+	star='*' |
+	eventVariable=ID '.' eventPropName=ID	
 ;
 
-GroupOp:
+terminal GROUP_OP:
 	'count' |
 	'max' |
 	'min'

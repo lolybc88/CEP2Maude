@@ -10,8 +10,6 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
-import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
-import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 import org.xtext.example.mydsl.services.Esper2MaudeGrammarAccess;
@@ -20,12 +18,10 @@ import org.xtext.example.mydsl.services.Esper2MaudeGrammarAccess;
 public class Esper2MaudeSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected Esper2MaudeGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_Pattern_GroupByKeyword_9_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (Esper2MaudeGrammarAccess) access;
-		match_Pattern_GroupByKeyword_9_q = new TokenAlias(false, true, grammarAccess.getPatternAccess().getGroupByKeyword_9());
 	}
 	
 	@Override
@@ -40,21 +36,8 @@ public class Esper2MaudeSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_Pattern_GroupByKeyword_9_q.equals(syntax))
-				emit_Pattern_GroupByKeyword_9_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else acceptNodes(getLastNavigableState(), syntaxNodes);
+			acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
-	/**
-	 * Ambiguous syntax:
-	 *     'group by'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     selectEntry=LastSelectEntry 'from' (ambiguity) (rule end)
-	 */
-	protected void emit_Pattern_GroupByKeyword_9_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
 }

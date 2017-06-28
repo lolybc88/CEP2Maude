@@ -3,7 +3,9 @@
  */
 package org.xtext.example.mydsl.generator;
 
+import com.google.common.base.Objects;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -11,7 +13,21 @@ import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.xtext.example.mydsl.esper2Maude.Event;
+import org.xtext.example.mydsl.esper2Maude.EventProperty;
+import org.xtext.example.mydsl.esper2Maude.Every;
+import org.xtext.example.mydsl.esper2Maude.Field;
+import org.xtext.example.mydsl.esper2Maude.FilterFrom;
+import org.xtext.example.mydsl.esper2Maude.FollowedBy;
+import org.xtext.example.mydsl.esper2Maude.LastSelectEntry;
 import org.xtext.example.mydsl.esper2Maude.Model;
+import org.xtext.example.mydsl.esper2Maude.NonLastSelectEntry;
+import org.xtext.example.mydsl.esper2Maude.Pattern;
+import org.xtext.example.mydsl.esper2Maude.Schema;
+import org.xtext.example.mydsl.esper2Maude.SelectEntry;
+import org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy;
+import org.xtext.example.mydsl.esper2Maude.WhereFilter;
+import org.xtext.example.mydsl.esper2Maude.Window;
 
 @SuppressWarnings("all")
 public class Esper2MaudeGenerator extends AbstractGenerator {
@@ -20,15 +36,1060 @@ public class Esper2MaudeGenerator extends AbstractGenerator {
     EList<EObject> _contents = resource.getContents();
     EObject _head = IterableExtensions.<EObject>head(_contents);
     Model model = ((Model) _head);
+    URI _uRI = resource.getURI();
+    String _fileName = this.fileName(_uRI);
+    String _plus = (_fileName + ".maude");
     CharSequence _compile = this.compile(model);
-    fsa.generateFile(("code" + ".maude"), _compile);
+    fsa.generateFile(_plus, _compile);
+  }
+  
+  public String fileName(final URI uri) {
+    String _string = uri.toString();
+    String _string_1 = uri.toString();
+    int _lastIndexOf = _string_1.lastIndexOf("/");
+    int _plus = (_lastIndexOf + 1);
+    String _string_2 = uri.toString();
+    int _lastIndexOf_1 = _string_2.lastIndexOf(".");
+    return _string.substring(_plus, _lastIndexOf_1);
   }
   
   public CharSequence compile(final Model e) {
     StringConcatenation _builder = new StringConcatenation();
-    String _string = e.toString();
-    _builder.append(_string, "");
+    CharSequence _intro = this.intro();
+    _builder.append(_intro, "");
     _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    EList<Schema> _schemas = e.getSchemas();
+    String _generateCodeForPrimitiveEvents = this.generateCodeForPrimitiveEvents(_schemas);
+    _builder.append(_generateCodeForPrimitiveEvents, "    ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    EList<Pattern> _patterns = e.getPatterns();
+    String _generateCodeForDerivedEvents = this.generateCodeForDerivedEvents(_patterns, e);
+    _builder.append(_generateCodeForDerivedEvents, "    ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("    ");
+    EList<Pattern> _patterns_1 = e.getPatterns();
+    String _generateRuleCodeForPatterns = this.generateRuleCodeForPatterns(_patterns_1);
+    _builder.append(_generateRuleCodeForPatterns, "    ");
+    _builder.newLineIfNotEmpty();
+    CharSequence _generateInitialModel = this.generateInitialModel(e);
+    _builder.append(_generateInitialModel, "");
+    _builder.newLineIfNotEmpty();
+    CharSequence _closing = this.closing();
+    _builder.append(_closing, "");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public CharSequence generateInitialModel(final Model m) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("********* INITIAL MODEL");
+    _builder.newLine();
+    _builder.append("op InitialModel : -> System .");
+    _builder.newLine();
+    _builder.append("eq InitialModel");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("= {");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("< \'c : Clock | time : 0 >");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("< \'e : Stream | events : nil >");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("< \'f : CGStream | eventscg : nil >");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("< \'x : Counter | n : 1000 >");
+    _builder.newLine();
+    _builder.append("*** we create the factories");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("< \'p : EventPruningFactory | period : PRUNINGPERIOD, savedEvents : nil, wakeUpAt : PRUNINGPERIOD, npe : 0 >");
+    _builder.newLine();
+    String _generateFactoriesForInitialModel = this.generateFactoriesForInitialModel(m);
+    _builder.append(_generateFactoriesForInitialModel, "");
+    _builder.append(" ");
+    _builder.newLineIfNotEmpty();
+    _builder.append("} .");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public String generateFactoriesForInitialModel(final Model m) {
+    int i = 0;
+    EList<Pattern> _patterns = m.getPatterns();
+    for (final Pattern p : _patterns) {
+      {
+        if (((!Objects.equal(p.getWin(), null)) && (!Objects.equal(p.getWin().getTypeTime(), null)))) {
+          Event _event = p.getEvent();
+          String _name = _event.getName();
+          String _plus = ((("< \'f" + Integer.valueOf(i)) + " : ") + _name);
+          String _plus_1 = (_plus + "Factory | *** USER DEFINED ***, startTime : 0, npe : 0, windowLength : ");
+          Window _win = p.getWin();
+          int _num = _win.getNum();
+          String _plus_2 = (_plus_1 + Integer.valueOf(_num));
+          return (_plus_2 + ", lastEvent : 0 >");
+        } else {
+          if (((!Objects.equal(p.getWin(), null)) && (!Objects.equal(p.getWin().getTypeBatch(), null)))) {
+            Event _event_1 = p.getEvent();
+            String _name_1 = _event_1.getName();
+            String _plus_3 = ((("< \'f" + Integer.valueOf(i)) + " : ") + _name_1);
+            String _plus_4 = (_plus_3 + "Factory | *** USER DEFINED ***, wakeUpAt : ");
+            Window _win_1 = p.getWin();
+            int _num_1 = _win_1.getNum();
+            String _plus_5 = (_plus_4 + Integer.valueOf(_num_1));
+            return (_plus_5 + ", npe : 0 >");
+          } else {
+            if (((!Objects.equal(p.getFromFilter().getFollowedBy(), null)) && (!Objects.equal(p.getFromFilter().getFollowedBy().getWhereFilter().getTimer(), null)))) {
+              Event _event_2 = p.getEvent();
+              String _name_2 = _event_2.getName();
+              String _plus_6 = ((("< \'f" + Integer.valueOf(i)) + " : ") + _name_2);
+              String _plus_7 = (_plus_6 + "Factory | *** USER DEFINED ***, startTime : 0, npe : 0, windowLength : ");
+              FilterFrom _fromFilter = p.getFromFilter();
+              FollowedBy _followedBy = _fromFilter.getFollowedBy();
+              WhereFilter _whereFilter = _followedBy.getWhereFilter();
+              int _num_2 = _whereFilter.getNum();
+              String _plus_8 = (_plus_7 + Integer.valueOf(_num_2));
+              return (_plus_8 + ", lastEvent : 0 >");
+            } else {
+              if (((!Objects.equal(p.getFromFilter().getLeft().getFollowedBy(), null)) && (!Objects.equal(p.getFromFilter().getLeft().getFollowedBy().getWhereFilter().getTimer(), null)))) {
+                Event _event_3 = p.getEvent();
+                String _name_3 = _event_3.getName();
+                String _plus_9 = ((("< \'f" + Integer.valueOf(i)) + " : ") + _name_3);
+                String _plus_10 = (_plus_9 + "Factory | *** USER DEFINED ***, startTime : 0, npe : 0, windowLength : ");
+                FilterFrom _fromFilter_1 = p.getFromFilter();
+                FilterFrom _left = _fromFilter_1.getLeft();
+                FollowedBy _followedBy_1 = _left.getFollowedBy();
+                WhereFilter _whereFilter_1 = _followedBy_1.getWhereFilter();
+                int _num_3 = _whereFilter_1.getNum();
+                String _plus_11 = (_plus_10 + Integer.valueOf(_num_3));
+                return (_plus_11 + ", lastEvent : 0 >");
+              } else {
+                if (((!Objects.equal(p.getFromFilter().getRight().getFollowedBy(), null)) && (!Objects.equal(p.getFromFilter().getRight().getFollowedBy().getWhereFilter().getTimer(), null)))) {
+                  Event _event_4 = p.getEvent();
+                  String _name_4 = _event_4.getName();
+                  String _plus_12 = ((("< \'f" + Integer.valueOf(i)) + " : ") + _name_4);
+                  String _plus_13 = (_plus_12 + "Factory | *** USER DEFINED ***, startTime : 0, npe : 0, windowLength : ");
+                  FilterFrom _fromFilter_2 = p.getFromFilter();
+                  FilterFrom _right = _fromFilter_2.getRight();
+                  FollowedBy _followedBy_2 = _right.getFollowedBy();
+                  WhereFilter _whereFilter_2 = _followedBy_2.getWhereFilter();
+                  int _num_4 = _whereFilter_2.getNum();
+                  String _plus_14 = (_plus_13 + Integer.valueOf(_num_4));
+                  return (_plus_14 + ", lastEvent : 0 >");
+                }
+              }
+            }
+          }
+        }
+        i++;
+      }
+    }
+    return null;
+  }
+  
+  public String generateCodeForDerivedEvents(final EList<Pattern> patterns, final Model m) {
+    String ss = "";
+    for (final Pattern p : patterns) {
+      {
+        String _ss = ss;
+        CharSequence _generateCodeForDerivedEvent = this.generateCodeForDerivedEvent(p, m);
+        ss = (_ss + _generateCodeForDerivedEvent);
+        String _ss_1 = ss;
+        String _generateEquationsForDerivedEvent = this.generateEquationsForDerivedEvent(p, m);
+        ss = (_ss_1 + _generateEquationsForDerivedEvent);
+        String _ss_2 = ss;
+        CharSequence _generateFactoryForDerivedEvent = this.generateFactoryForDerivedEvent(p);
+        ss = (_ss_2 + _generateFactoryForDerivedEvent);
+      }
+    }
+    return (ss + "\n");
+  }
+  
+  public CharSequence generateFactoryForDerivedEvent(final Pattern pattern) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("class ");
+    Event _event = pattern.getEvent();
+    String _name = _event.getName();
+    _builder.append(_name, "");
+    _builder.append("Factory | *** USER DEFINED *** .");
+    _builder.newLineIfNotEmpty();
+    _builder.append("subclass ");
+    Event _event_1 = pattern.getEvent();
+    String _name_1 = _event_1.getName();
+    _builder.append(_name_1, "");
+    _builder.append("Factory < ");
+    String _kindOfFactory = this.kindOfFactory(pattern);
+    _builder.append(_kindOfFactory, "");
+    _builder.append(" .");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public String kindOfFactory(final Pattern p) {
+    if (((!Objects.equal(p.getWin(), null)) && (!Objects.equal(p.getWin().getTypeTime(), null)))) {
+      return "HistoryFactory";
+    } else {
+      if (((!Objects.equal(p.getWin(), null)) && (!Objects.equal(p.getWin().getTypeBatch(), null)))) {
+        return "TimedFactory";
+      } else {
+        if (((((!Objects.equal(p.getFromFilter().getFollowedBy(), null)) && (!Objects.equal(p.getFromFilter().getFollowedBy().getWhereFilter().getTimer(), null))) || ((!Objects.equal(p.getFromFilter().getLeft().getFollowedBy(), null)) && (!Objects.equal(p.getFromFilter().getLeft().getFollowedBy().getWhereFilter().getTimer(), null)))) || ((!Objects.equal(p.getFromFilter().getRight().getFollowedBy(), null)) && (!Objects.equal(p.getFromFilter().getRight().getFollowedBy().getWhereFilter().getTimer(), null))))) {
+          return "HistoryFactory";
+        }
+      }
+    }
+    return null;
+  }
+  
+  public String generateEquationsForDerivedEvent(final Pattern p, final Model m) {
+    String ss = "";
+    EList<NonLastSelectEntry> _selectEntries = p.getSelectEntries();
+    for (final NonLastSelectEntry e : _selectEntries) {
+      if (((!Objects.equal(e.getEntry().getField().getStar(), null)) || (!Objects.equal(e.getEntry().getGroupOp(), null)))) {
+        String _ss = ss;
+        ss = (_ss + " **TODO**, ");
+      } else {
+        String _ss_1 = ss;
+        SelectEntry _entry = e.getEntry();
+        String _alias = _entry.getAlias();
+        String _plus = ("op " + _alias);
+        String _plus_1 = (_plus + " : Object -> ");
+        SelectEntry _entry_1 = e.getEntry();
+        String _derivedAttributeType = this.derivedAttributeType(_entry_1, p, m);
+        String _plus_2 = (_plus_1 + _derivedAttributeType);
+        String _plus_3 = (_plus_2 + " .\n");
+        ss = (_ss_1 + _plus_3);
+        String _ss_2 = ss;
+        SelectEntry _entry_2 = e.getEntry();
+        String _alias_1 = _entry_2.getAlias();
+        String _plus_4 = ("eq " + _alias_1);
+        String _plus_5 = (_plus_4 + "(< O : ");
+        Event _event = p.getEvent();
+        String _name = _event.getName();
+        String _plus_6 = (_plus_5 + _name);
+        String _plus_7 = (_plus_6 + " | ");
+        SelectEntry _entry_3 = e.getEntry();
+        String _alias_2 = _entry_3.getAlias();
+        String _plus_8 = (_plus_7 + _alias_2);
+        String _plus_9 = (_plus_8 + " : N >) = N .\n");
+        ss = (_ss_2 + _plus_9);
+      }
+    }
+    String _ss_3 = ss;
+    LastSelectEntry _selectEntry = p.getSelectEntry();
+    SelectEntry _entry_4 = _selectEntry.getEntry();
+    String _alias_3 = _entry_4.getAlias();
+    String _plus_10 = ("op " + _alias_3);
+    String _plus_11 = (_plus_10 + " : Object -> ");
+    LastSelectEntry _selectEntry_1 = p.getSelectEntry();
+    SelectEntry _entry_5 = _selectEntry_1.getEntry();
+    String _derivedAttributeType_1 = this.derivedAttributeType(_entry_5, p, m);
+    String _plus_12 = (_plus_11 + _derivedAttributeType_1);
+    String _plus_13 = (_plus_12 + " .\n");
+    ss = (_ss_3 + _plus_13);
+    String _ss_4 = ss;
+    LastSelectEntry _selectEntry_2 = p.getSelectEntry();
+    SelectEntry _entry_6 = _selectEntry_2.getEntry();
+    String _alias_4 = _entry_6.getAlias();
+    String _plus_14 = ("eq " + _alias_4);
+    String _plus_15 = (_plus_14 + "(< O : ");
+    Event _event_1 = p.getEvent();
+    String _name_1 = _event_1.getName();
+    String _plus_16 = (_plus_15 + _name_1);
+    String _plus_17 = (_plus_16 + " | ");
+    LastSelectEntry _selectEntry_3 = p.getSelectEntry();
+    SelectEntry _entry_7 = _selectEntry_3.getEntry();
+    String _alias_5 = _entry_7.getAlias();
+    String _plus_18 = (_plus_17 + _alias_5);
+    String _plus_19 = (_plus_18 + " : N >) = N .\n");
+    ss = (_ss_4 + _plus_19);
+    return (ss + "\n");
+  }
+  
+  public String derivedAttributeType(final SelectEntry entry, final Pattern p, final Model model) {
+    Field _field = entry.getField();
+    String _eventVariable = _field.getEventVariable();
+    FilterFrom _fromFilter = p.getFromFilter();
+    String eventName = this.obtainEvent(_eventVariable, _fromFilter);
+    Field _field_1 = entry.getField();
+    String _eventPropName = _field_1.getEventPropName();
+    return this.obtainTypeOfPropFromEvent(_eventPropName, eventName, model);
+  }
+  
+  public String obtainTypeOfPropFromEvent(final String propName, final String eventName, final Model model) {
+    boolean found = false;
+    int i = 0;
+    String type = "";
+    while (((i < model.getSchemas().size()) && (!found))) {
+      {
+        EList<Schema> _schemas = model.getSchemas();
+        Schema schema = _schemas.get(i);
+        String _name = schema.getName();
+        boolean _equals = _name.equals(eventName);
+        if (_equals) {
+          String _findType = this.findType(propName, schema);
+          type = _findType;
+          found = true;
+        }
+        i++;
+      }
+    }
+    return type;
+  }
+  
+  public String findType(final String propName, final Schema schema) {
+    EventProperty _prop = schema.getProp();
+    String _name = _prop.getName();
+    boolean _equals = _name.equals(propName);
+    if (_equals) {
+      EventProperty _prop_1 = schema.getProp();
+      String _type = _prop_1.getType();
+      return this.espertype2maudetype(_type);
+    } else {
+      EList<EventProperty> _props = schema.getProps();
+      boolean _notEquals = (!Objects.equal(_props, null));
+      if (_notEquals) {
+        int i = 0;
+        boolean found = false;
+        String type = "Not found";
+        while (((i < schema.getProps().size()) && (!found))) {
+          {
+            EList<EventProperty> _props_1 = schema.getProps();
+            EventProperty _get = _props_1.get(i);
+            String _name_1 = _get.getName();
+            boolean _equals_1 = _name_1.equals(propName);
+            if (_equals_1) {
+              EList<EventProperty> _props_2 = schema.getProps();
+              EventProperty _get_1 = _props_2.get(i);
+              String _type_1 = _get_1.getType();
+              type = _type_1;
+              found = true;
+            }
+            i++;
+          }
+        }
+        return this.espertype2maudetype(type);
+      }
+    }
+    return null;
+  }
+  
+  public String espertype2maudetype(final String esperType) {
+    boolean _equals = esperType.equals("integer");
+    if (_equals) {
+      return "Int";
+    } else {
+      if ((esperType.equals("double") || esperType.equals("long"))) {
+        return "Rat";
+      } else {
+        boolean _equals_1 = esperType.equals("string");
+        if (_equals_1) {
+          return "Qid";
+        } else {
+          boolean _equals_2 = esperType.equals("boolean");
+          if (_equals_2) {
+            return "Bool";
+          }
+        }
+      }
+    }
+    return null;
+  }
+  
+  public String obtainEvent(final String eventVariable, final FilterFrom fromFilter) {
+    String _eventName = fromFilter.getEventName();
+    boolean _notEquals = (!Objects.equal(_eventName, null));
+    if (_notEquals) {
+      return fromFilter.getEventName();
+    } else {
+      if (((!Objects.equal(fromFilter.getFollowedBy(), null)) && (!this.getEvent(eventVariable, fromFilter.getFollowedBy()).equals("")))) {
+        FollowedBy _followedBy = fromFilter.getFollowedBy();
+        return this.getEvent(eventVariable, _followedBy);
+      } else {
+        if (((!Objects.equal(fromFilter.getFollowedBy(), null)) && this.getEvent(eventVariable, fromFilter.getFollowedBy()).equals(""))) {
+          return "Not found";
+        } else {
+          FilterFrom _left = fromFilter.getLeft();
+          String eventLeft = this.obtainEvent(eventVariable, _left);
+          FilterFrom _right = fromFilter.getRight();
+          String eventRight = this.obtainEvent(eventVariable, _right);
+          boolean _equals = eventLeft.equals("");
+          boolean _not = (!_equals);
+          if (_not) {
+            return eventLeft;
+          } else {
+            boolean _equals_1 = eventRight.equals("");
+            boolean _not_1 = (!_equals_1);
+            if (_not_1) {
+              return eventRight;
+            } else {
+              return "Not found 2";
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  public String getEvent(final String eventVariable, final FollowedBy followedBy) {
+    if (((!Objects.equal(followedBy.getLeft(), null)) && (!this.getEventAux(eventVariable, followedBy.getLeft()).equals("")))) {
+      SubFilterFollowedBy _left = followedBy.getLeft();
+      return this.getEventAux(eventVariable, _left);
+    } else {
+      if (((!Objects.equal(followedBy.getRight(), null)) && (!this.getEventAux(eventVariable, followedBy.getRight()).equals("")))) {
+        SubFilterFollowedBy _right = followedBy.getRight();
+        return this.getEventAux(eventVariable, _right);
+      } else {
+        return "";
+      }
+    }
+  }
+  
+  public String getEventAux(final String eventVariable, final SubFilterFollowedBy sub) {
+    if (((!Objects.equal(sub.getEventVariable(), null)) && sub.getEventVariable().equals(eventVariable))) {
+      return sub.getEventName();
+    } else {
+      if (((!Objects.equal(sub.getEvery(), null)) && sub.getEvery().getEventVariable().equals(eventVariable))) {
+        Every _every = sub.getEvery();
+        return _every.getEventName();
+      } else {
+        if (((!Objects.equal(sub.getEvery(), null)) && (!Objects.equal(sub.getEvery().getFilterFrom(), null)))) {
+          Every _every_1 = sub.getEvery();
+          FilterFrom _filterFrom = _every_1.getFilterFrom();
+          return this.obtainEvent(eventVariable, ((FilterFrom) _filterFrom));
+        } else {
+          return "";
+        }
+      }
+    }
+  }
+  
+  public CharSequence generateCodeForDerivedEvent(final Pattern p, final Model m) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("class ");
+    Event _event = p.getEvent();
+    String _name = _event.getName();
+    _builder.append(_name, "");
+    _builder.append(" | ");
+    EList<NonLastSelectEntry> _selectEntries = p.getSelectEntries();
+    LastSelectEntry _selectEntry = p.getSelectEntry();
+    String _generateCodeForDerivedEventProps = this.generateCodeForDerivedEventProps(_selectEntries, _selectEntry, p, m);
+    _builder.append(_generateCodeForDerivedEventProps, "");
+    _builder.append(" .");
+    _builder.newLineIfNotEmpty();
+    _builder.append("subclass ");
+    Event _event_1 = p.getEvent();
+    String _name_1 = _event_1.getName();
+    _builder.append(_name_1, "");
+    _builder.append(" < Event .");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public String generateCodeForDerivedEventProps(final EList<NonLastSelectEntry> entries, final LastSelectEntry entry, final Pattern p, final Model m) {
+    String ss = "";
+    for (final NonLastSelectEntry e : entries) {
+      if (((!Objects.equal(e.getEntry().getField().getStar(), null)) || (!Objects.equal(e.getEntry().getGroupOp(), null)))) {
+        String _ss = ss;
+        ss = (_ss + "TODO, ");
+      } else {
+        String _ss_1 = ss;
+        SelectEntry _entry = e.getEntry();
+        String _alias = _entry.getAlias();
+        String _plus = (_alias + " : ");
+        SelectEntry _entry_1 = e.getEntry();
+        String _derivedAttributeType = this.derivedAttributeType(_entry_1, p, m);
+        String _plus_1 = (_plus + _derivedAttributeType);
+        String _plus_2 = (_plus_1 + ", ");
+        ss = (_ss_1 + _plus_2);
+      }
+    }
+    String _ss_2 = ss;
+    SelectEntry _entry_2 = entry.getEntry();
+    String _alias_1 = _entry_2.getAlias();
+    String _plus_3 = (_alias_1 + " : ");
+    SelectEntry _entry_3 = entry.getEntry();
+    String _derivedAttributeType_1 = this.derivedAttributeType(_entry_3, p, m);
+    String _plus_4 = (_plus_3 + _derivedAttributeType_1);
+    ss = (_ss_2 + _plus_4);
+    return ss;
+  }
+  
+  public String generateCodeForPrimitiveEvents(final EList<Schema> schemas) {
+    String ss = "";
+    for (final Schema s : schemas) {
+      {
+        String _ss = ss;
+        CharSequence _generateCodeForPrimitiveEvent = this.generateCodeForPrimitiveEvent(s);
+        ss = (_ss + _generateCodeForPrimitiveEvent);
+        String _ss_1 = ss;
+        String _generateEquationsPrimitiveEvent = this.generateEquationsPrimitiveEvent(s);
+        ss = (_ss_1 + _generateEquationsPrimitiveEvent);
+        String _ss_2 = ss;
+        CharSequence _generateFactoryForPrimitiveEvent = this.generateFactoryForPrimitiveEvent(s);
+        ss = (_ss_2 + _generateFactoryForPrimitiveEvent);
+      }
+    }
+    return (ss + "\n");
+  }
+  
+  public CharSequence generateFactoryForPrimitiveEvent(final Schema schema) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("class ");
+    String _name = schema.getName();
+    _builder.append(_name, "");
+    _builder.append("Factory | id : Int .");
+    _builder.newLineIfNotEmpty();
+    _builder.append("subclass ");
+    String _name_1 = schema.getName();
+    _builder.append(_name_1, "");
+    _builder.append("Factory < TimedFactory .");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public String generateEquationsPrimitiveEvent(final Schema s) {
+    String ss = "";
+    EventProperty _prop = s.getProp();
+    boolean _notEquals = (!Objects.equal(_prop, null));
+    if (_notEquals) {
+      String _ss = ss;
+      EventProperty _prop_1 = s.getProp();
+      String _name = _prop_1.getName();
+      String _plus = ("op " + _name);
+      String _plus_1 = (_plus + " : Object -> ");
+      EventProperty _prop_2 = s.getProp();
+      String _type = _prop_2.getType();
+      String _string = _type.toString();
+      String _generatePropType = this.generatePropType(_string);
+      String _plus_2 = (_plus_1 + _generatePropType);
+      String _plus_3 = (_plus_2 + " .\n");
+      ss = (_ss + _plus_3);
+      String _ss_1 = ss;
+      EventProperty _prop_3 = s.getProp();
+      String _name_1 = _prop_3.getName();
+      String _plus_4 = ("eq " + _name_1);
+      String _plus_5 = (_plus_4 + "(< O : ");
+      String _name_2 = s.getName();
+      String _plus_6 = (_plus_5 + _name_2);
+      String _plus_7 = (_plus_6 + " | ");
+      EventProperty _prop_4 = s.getProp();
+      String _name_3 = _prop_4.getName();
+      String _plus_8 = (_plus_7 + _name_3);
+      String _plus_9 = (_plus_8 + " : N >) = N .\n");
+      ss = (_ss_1 + _plus_9);
+    }
+    EList<EventProperty> _props = s.getProps();
+    boolean _notEquals_1 = (!Objects.equal(_props, null));
+    if (_notEquals_1) {
+      EList<EventProperty> _props_1 = s.getProps();
+      for (final EventProperty p : _props_1) {
+        {
+          String _ss_2 = ss;
+          String _name_4 = p.getName();
+          String _plus_10 = ("op " + _name_4);
+          String _plus_11 = (_plus_10 + " : Object -> ");
+          String _type_1 = p.getType();
+          String _string_1 = _type_1.toString();
+          String _generatePropType_1 = this.generatePropType(_string_1);
+          String _plus_12 = (_plus_11 + _generatePropType_1);
+          String _plus_13 = (_plus_12 + " .\n");
+          ss = (_ss_2 + _plus_13);
+          String _ss_3 = ss;
+          String _name_5 = p.getName();
+          String _plus_14 = ("eq " + _name_5);
+          String _plus_15 = (_plus_14 + "(< O : ");
+          String _name_6 = s.getName();
+          String _plus_16 = (_plus_15 + _name_6);
+          String _plus_17 = (_plus_16 + " | ");
+          String _name_7 = p.getName();
+          String _plus_18 = (_plus_17 + _name_7);
+          String _plus_19 = (_plus_18 + " : N >) = N .\n");
+          ss = (_ss_3 + _plus_19);
+        }
+      }
+      String _ss_2 = ss;
+      ss = (_ss_2 + "\n");
+    }
+    return ss;
+  }
+  
+  public CharSequence generateCodeForPrimitiveEvent(final Schema s) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("class ");
+    String _name = s.getName();
+    _builder.append(_name, "");
+    _builder.append(" | ");
+    String _generateCodeForPrimitiveEventProps = this.generateCodeForPrimitiveEventProps(s);
+    _builder.append(_generateCodeForPrimitiveEventProps, "");
+    _builder.append(" .");
+    _builder.newLineIfNotEmpty();
+    _builder.append("subclass ");
+    String _name_1 = s.getName();
+    _builder.append(_name_1, "");
+    _builder.append(" < Event .");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public String generateCodeForPrimitiveEventProps(final Schema s) {
+    String ss = "";
+    EventProperty _prop = s.getProp();
+    boolean _notEquals = (!Objects.equal(_prop, null));
+    if (_notEquals) {
+      EventProperty _prop_1 = s.getProp();
+      String _name = _prop_1.getName();
+      String _plus = (_name + " : ");
+      EventProperty _prop_2 = s.getProp();
+      String _type = _prop_2.getType();
+      String _string = _type.toString();
+      String _generatePropType = this.generatePropType(_string);
+      String _plus_1 = (_plus + _generatePropType);
+      ss = _plus_1;
+    }
+    EList<EventProperty> _props = s.getProps();
+    boolean _notEquals_1 = (!Objects.equal(_props, null));
+    if (_notEquals_1) {
+      EList<EventProperty> _props_1 = s.getProps();
+      for (final EventProperty p : _props_1) {
+        String _ss = ss;
+        String _name_1 = p.getName();
+        String _plus_2 = (", " + _name_1);
+        String _plus_3 = (_plus_2 + " : ");
+        String _type_1 = p.getType();
+        String _string_1 = _type_1.toString();
+        String _generatePropType_1 = this.generatePropType(_string_1);
+        String _plus_4 = (_plus_3 + _generatePropType_1);
+        ss = (_ss + _plus_4);
+      }
+    }
+    return ss;
+  }
+  
+  public String generatePropType(final String t) {
+    if ((t.equals("long") || t.equals("double"))) {
+      return "Rat";
+    } else {
+      boolean _equals = t.equals("integer");
+      if (_equals) {
+        return "Int";
+      } else {
+        boolean _equals_1 = t.equals("string");
+        if (_equals_1) {
+          return "Qid";
+        } else {
+          boolean _equals_2 = t.equals("boolean");
+          if (_equals_2) {
+            return "Bool";
+          }
+        }
+      }
+    }
+    return null;
+  }
+  
+  public CharSequence generateRuleCodeForPattern(final Pattern p) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("crl [");
+    Event _event = p.getEvent();
+    String _name = _event.getName();
+    _builder.append(_name, "");
+    _builder.append("] :");
+    _builder.newLineIfNotEmpty();
+    _builder.append("< C : Clock | time : NOW >");
+    _builder.newLine();
+    _builder.append("< CO : Counter | n : N >");
+    _builder.newLine();
+    _builder.append("< S : Stream | events : L >");
+    _builder.newLine();
+    _builder.append("< F : ");
+    Event _event_1 = p.getEvent();
+    String _name_1 = _event_1.getName();
+    _builder.append(_name_1, "");
+    _builder.append("Factory | *** USER DEFINED *** >");
+    _builder.newLineIfNotEmpty();
+    _builder.append("=>");
+    _builder.newLine();
+    _builder.append("< C : Clock | time : NOW >");
+    _builder.newLine();
+    _builder.append("< CO : Counter | n : N + 1 >");
+    _builder.newLine();
+    _builder.append("< S : Stream | events : insert( < N + 1 : ");
+    Event _event_2 = p.getEvent();
+    String _name_2 = _event_2.getName();
+    _builder.append(_name_2, "");
+    _builder.append(" |");
+    _builder.newLineIfNotEmpty();
+    String _generateCodeForFactories = this.generateCodeForFactories(p);
+    _builder.append(_generateCodeForFactories, "");
+    _builder.newLineIfNotEmpty();
+    return _builder;
+  }
+  
+  public String generateCodeForFactories(final Pattern p) {
+    int i = 0;
+    String ss = "";
+    EList<NonLastSelectEntry> _selectEntries = p.getSelectEntries();
+    for (final NonLastSelectEntry e : _selectEntries) {
+      {
+        if (((!Objects.equal(e.getEntry().getField().getStar(), null)) || (!Objects.equal(e.getEntry().getGroupOp(), null)))) {
+        } else {
+          String _ss = ss;
+          SelectEntry _entry = e.getEntry();
+          String _alias = _entry.getAlias();
+          String _plus = ("\t" + _alias);
+          String _plus_1 = (_plus + " : ");
+          String _plus_2 = (_plus_1 + "VAR_");
+          Event _event = p.getEvent();
+          String _name = _event.getName();
+          String _plus_3 = (_plus_2 + _name);
+          String _plus_4 = (_plus_3 + "_");
+          String _plus_5 = (_plus_4 + Integer.valueOf(i));
+          String _plus_6 = (_plus_5 + ",");
+          String _plus_7 = (_plus_6 + "\n");
+          ss = (_ss + _plus_7);
+        }
+        i++;
+      }
+    }
+    String _ss = ss;
+    LastSelectEntry _selectEntry = p.getSelectEntry();
+    SelectEntry _entry = _selectEntry.getEntry();
+    String _alias = _entry.getAlias();
+    String _plus = ("\t" + _alias);
+    String _plus_1 = (_plus + " : VAR_");
+    Event _event = p.getEvent();
+    String _name = _event.getName();
+    String _plus_2 = (_plus_1 + _name);
+    String _plus_3 = (_plus_2 + "_");
+    String _plus_4 = (_plus_3 + Integer.valueOf(i));
+    String _plus_5 = (_plus_4 + " >, L ) >\n");
+    ss = (_ss + _plus_5);
+    String _ss_1 = ss;
+    Event _event_1 = p.getEvent();
+    String _name_1 = _event_1.getName();
+    String _plus_6 = ("< F : " + _name_1);
+    String _plus_7 = (_plus_6 + "Factory | *** USER DEFINED ***  >\n");
+    ss = (_ss_1 + _plus_7);
+    String _ss_2 = ss;
+    ss = (_ss_2 + "if \n");
+    for (int j = 0; (j < i); j++) {
+      String _ss_3 = ss;
+      Event _event_2 = p.getEvent();
+      String _name_2 = _event_2.getName();
+      String _plus_8 = ("\tVAR_" + _name_2);
+      String _plus_9 = (_plus_8 + "_");
+      String _plus_10 = (_plus_9 + Integer.valueOf(j));
+      String _plus_11 = (_plus_10 + " := *** USER DEFINED *** /\\\n");
+      ss = (_ss_3 + _plus_11);
+    }
+    String _ss_3 = ss;
+    Event _event_2 = p.getEvent();
+    String _name_2 = _event_2.getName();
+    String _plus_8 = ("\tVAR_" + _name_2);
+    String _plus_9 = (_plus_8 + "_");
+    String _plus_10 = (_plus_9 + Integer.valueOf(i));
+    String _plus_11 = (_plus_10 + " := *** USER DEFINED ***\n");
+    ss = (_ss_3 + _plus_11);
+    String _ss_4 = ss;
+    ss = (_ss_4 + ".");
+    return ss;
+  }
+  
+  public String generateRuleCodeForPatterns(final EList<Pattern> patterns) {
+    String ss = "************************************\r\n************** RULES ***************\r\n************************************\r\n";
+    for (final Pattern p : patterns) {
+      String _ss = ss;
+      CharSequence _generateRuleCodeForPattern = this.generateRuleCodeForPattern(p);
+      ss = (_ss + _generateRuleCodeForPattern);
+    }
+    return ss;
+  }
+  
+  public CharSequence intro() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("(view Object from TRIV to CONFIGURATION is");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("sort Elt to Object .");
+    _builder.newLine();
+    _builder.append(" ");
+    _builder.append("endv)");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("(omod MY_MODULE is");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("*** All times in seconds");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("****** IMPORTS");
+    _builder.newLine();
+    _builder.append("pr CONFIGURATION .");
+    _builder.newLine();
+    _builder.append("pr (LIST * (op __ to _;_)) {Object} .");
+    _builder.newLine();
+    _builder.append("pr NAT-TIME-DOMAIN-WITH-INF .");
+    _builder.newLine();
+    _builder.append("pr INT .");
+    _builder.newLine();
+    _builder.append("pr QID .");
+    _builder.newLine();
+    _builder.append("pr RAT .");
+    _builder.newLine();
+    _builder.append("pr PROB-DISTR . ");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("**** PARAMETERS");
+    _builder.newLine();
+    _builder.append("op NUMEVENTS : -> Int . *** number of events. ");
+    _builder.newLine();
+    _builder.append("*** If >0 it sets the upper limit. ");
+    _builder.newLine();
+    _builder.append("*** If <0 there is no limit. Just the time bound gven by TIMELIMIT.");
+    _builder.newLine();
+    _builder.append("*** eq NUMEVENTS = 1000 .");
+    _builder.newLine();
+    _builder.append("eq NUMEVENTS = -1 .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("op ONEDAY : -> Time . *** One day in miliseconds");
+    _builder.newLine();
+    _builder.append("eq ONEDAY = 86400 .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("op TIMELIMIT : -> Time . *** Time limit");
+    _builder.newLine();
+    _builder.append("*** eq TIMELIMIT = NUMEVENTS * 1000 .");
+    _builder.newLine();
+    _builder.append("*** eq TIMELIMIT = 1 * ONEDAY + 1 .");
+    _builder.newLine();
+    _builder.append("eq TIMELIMIT = 5 + ONEDAY + 1 . *** One day");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("op PRUNINGPERIOD : -> Time . *** Lifetime of events before moving to backup");
+    _builder.newLine();
+    _builder.append("*** eq PRUNINGPERIOD = ONEDAY + 1 .");
+    _builder.newLine();
+    _builder.append("eq PRUNINGPERIOD = 10 . *** 10 seconds");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("**** BASIC SORTS");
+    _builder.newLine();
+    _builder.append("subsort Int < Oid . *** To permit easy creation of fresh object identifiers");
+    _builder.newLine();
+    _builder.append("subsort Qid < Oid .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("***** BASIC CLASSES");
+    _builder.newLine();
+    _builder.append("class Event | ts : Time . *** Events with timeStamps");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("op ts : Object -> Time .");
+    _builder.newLine();
+    _builder.append("eq ts(< O : Event | ts : T >) = T .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("class Counter | n : Int . *** To create fresh object identifiers");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("class Factory | npe : Int . *** Number of produced events");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("class HistoryFactory | startTime : Time, ");
+    _builder.newLine();
+    _builder.append("                       ");
+    _builder.append("windowLength : Time,  *** duration of the window ");
+    _builder.newLine();
+    _builder.append("                       ");
+    _builder.append("lastEvent : Time *** To signal when the last event was detected");
+    _builder.newLine();
+    _builder.append("                       ");
+    _builder.append(".");
+    _builder.newLine();
+    _builder.append("class SizeFactory |    startTime : Time, ");
+    _builder.newLine();
+    _builder.append("                       ");
+    _builder.append("windowLength : Int,  *** number of events in the window");
+    _builder.newLine();
+    _builder.append("                       ");
+    _builder.append("lastEvent : Time *** To signal when the last event was detected");
+    _builder.newLine();
+    _builder.append("                       ");
+    _builder.append(".");
+    _builder.newLine();
+    _builder.append("class TimedFactory | wakeUpAt : Time .         *** To periocally generate events");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("subclasses HistoryFactory SizeFactory TimedFactory < Factory .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("class Clock | time : Time . *** Global clock");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("class Stream | events : List{Object} .  *** Stream of events");
+    _builder.newLine();
+    _builder.append("class CGStream | eventscg : List{Object} . *** Stream of Coarse Grained events");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("op insert : Object List{Object} -> List{Object} . *** insert ordered by timeStamp.");
+    _builder.newLine();
+    _builder.append("eq insert (OB, nil) = OB .");
+    _builder.newLine();
+    _builder.append("eq insert (OB1, (L ; OB2) ) = if ts(OB1) > ts(OB2) then L ; OB2 ; OB1");
+    _builder.newLine();
+    _builder.append("                              ");
+    _builder.append("else insert ( OB1, L ) ; OB2 fi .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("sort System .");
+    _builder.newLine();
+    _builder.append("op `{_`} : Configuration -> System .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("****** REAL TIME");
+    _builder.newLine();
+    _builder.append("vars Conf : Configuration .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("crl [tick] :");
+    _builder.newLine();
+    _builder.append("{ Conf < C : Clock | time : NOW > }");
+    _builder.newLine();
+    _builder.append("=>");
+    _builder.newLine();
+    _builder.append("{ delta (Conf, T) < C : Clock | time : NOW + T > }");
+    _builder.newLine();
+    _builder.append("if");
+    _builder.newLine();
+    _builder.append("T := mte(Conf, NOW) /\\ T > 0 /\\ (NOW < TIMELIMIT ) *** TIMELIMIT is end of times");
+    _builder.newLine();
+    _builder.append(".");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("op mte : Configuration Time -> Time .");
+    _builder.newLine();
+    _builder.append("eq mte(< O : TimedFactory | wakeUpAt : T1 > Conf, T2) = min( T1 - T2 , mte(Conf, T2) ) .");
+    _builder.newLine();
+    _builder.append("eq mte(Conf, T) = INF [owise] .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("op delta : Configuration Time -> Configuration .");
+    _builder.newLine();
+    _builder.append("eq delta(Conf, T) = Conf [owise] .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("*******************************************************");
+    _builder.newLine();
+    _builder.append("**** APPLICATION SPECIFIC:");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("****** VARIABLE DECLARATIONS");
+    _builder.newLine();
+    _builder.append("vars C CO S : Oid . *** clock, counter, stream, factory Oids.");
+    _builder.newLine();
+    _builder.append("vars O O1 O2 O3 O4 O5 O6 : Oid . *** general Oids.");
+    _builder.newLine();
+    _builder.append("vars OB OB1 OB2 : Object .");
+    _builder.newLine();
+    _builder.append("vars NOW T T1 T2 TLE : Time . *** times");
+    _builder.newLine();
+    _builder.append("vars D : Time . *** durations");
+    _builder.newLine();
+    _builder.append("vars L BL : List{Object} .");
+    _builder.newLine();
+    _builder.append("vars N M Q I J N1 N2 : Int .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("class EventPruningFactory | period : Time, savedEvents : List{Object} .");
+    _builder.newLine();
+    _builder.append("subclass EventPruningFactory < TimedFactory .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("****** RULES");
+    _builder.newLine();
+    _builder.append("*** RULE FOR PRUNING EVENTS");
+    _builder.newLine();
+    _builder.append("*** We use a backup stream in the factory");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("rl [PruneEvents] : *** pruning of old events ");
+    _builder.newLine();
+    _builder.append("< C : Clock | time : NOW >");
+    _builder.newLine();
+    _builder.append("< S : Stream | events : L >");
+    _builder.newLine();
+    _builder.append("< F : EventPruningFactory | period : T, savedEvents : BL, wakeUpAt : NOW, npe : J >");
+    _builder.newLine();
+    _builder.append("=>");
+    _builder.newLine();
+    _builder.append("< C : Clock | time : NOW >");
+    _builder.newLine();
+    _builder.append("< S : Stream | events : removeOldEvents(L, NOW - T ) >");
+    _builder.newLine();
+    _builder.append("< F : EventPruningFactory | period : T,  savedEvents : BL, wakeUpAt : NOW + T, npe : J > ");
+    _builder.newLine();
+    _builder.append("*** < F : EventPruningFactory | period : T,  savedEvents : (addOldEvents(L, NOW - T) ; BL), wakeUpAt : NOW + T > ");
+    _builder.newLine();
+    _builder.append(".");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("*** this operation gets rid of those events whose timestamp is less than T");
+    _builder.newLine();
+    _builder.append("op removeOldEvents : List{Object} Time -> List{Object} .");
+    _builder.newLine();
+    _builder.append("eq removeOldEvents ( nil, T ) = nil .");
+    _builder.newLine();
+    _builder.append("eq removeOldEvents ( (< O : Event | ts : T1 > ; L), T ) =");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("if (T1 >= T) then (< O : Event | ts : T1 > ; L) *** we make use of the fact that the list is sorted ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("else removeOldEvents (L, T) ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("fi .");
+    _builder.newLine();
+    _builder.append("eq removeOldEvents ( (OB ; L), T ) =  removeOldEvents (L, T) [owise] .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("op addOldEvents : List{Object} Time -> List{Object} .");
+    _builder.newLine();
+    _builder.append("eq addOldEvents ( nil, T ) = nil .");
+    _builder.newLine();
+    _builder.append("eq addOldEvents ( (< O : Event | ts : T1 > ; L), T ) =");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("if (T1 < T) then (< O : Event | ts : T1 > ; addOldEvents(L, T)) *** we make use of the fact that the list is sorted ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("else nil  ");
+    _builder.newLine();
+    _builder.append("    ");
+    _builder.append("fi .");
+    _builder.newLine();
+    _builder.append("eq addOldEvents ( (OB ; L), T ) =  addOldEvents (L, T) [owise] .");
+    _builder.newLine();
+    _builder.newLine();
+    _builder.append("***** EVENT CLASSES");
+    _builder.newLine();
+    _builder.newLine();
+    return _builder;
+  }
+  
+  public CharSequence closing() {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("endom)");
+    _builder.newLine();
+    _builder.append("eof");
+    _builder.newLine();
     return _builder;
   }
 }

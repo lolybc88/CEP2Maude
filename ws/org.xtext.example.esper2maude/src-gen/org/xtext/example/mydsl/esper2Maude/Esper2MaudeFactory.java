@@ -33,6 +33,24 @@ public interface Esper2MaudeFactory extends EFactory
   Model createModel();
 
   /**
+   * Returns a new object of class '<em>Schema</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Schema</em>'.
+   * @generated
+   */
+  Schema createSchema();
+
+  /**
+   * Returns a new object of class '<em>Event Property</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Event Property</em>'.
+   * @generated
+   */
+  EventProperty createEventProperty();
+
+  /**
    * Returns a new object of class '<em>Pattern</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -40,6 +58,114 @@ public interface Esper2MaudeFactory extends EFactory
    * @generated
    */
   Pattern createPattern();
+
+  /**
+   * Returns a new object of class '<em>Window</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Window</em>'.
+   * @generated
+   */
+  Window createWindow();
+
+  /**
+   * Returns a new object of class '<em>Where Filter</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Where Filter</em>'.
+   * @generated
+   */
+  WhereFilter createWhereFilter();
+
+  /**
+   * Returns a new object of class '<em>Filter From</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Filter From</em>'.
+   * @generated
+   */
+  FilterFrom createFilterFrom();
+
+  /**
+   * Returns a new object of class '<em>Followed By</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Followed By</em>'.
+   * @generated
+   */
+  FollowedBy createFollowedBy();
+
+  /**
+   * Returns a new object of class '<em>Sub Filter Followed By</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Sub Filter Followed By</em>'.
+   * @generated
+   */
+  SubFilterFollowedBy createSubFilterFollowedBy();
+
+  /**
+   * Returns a new object of class '<em>Every</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Every</em>'.
+   * @generated
+   */
+  Every createEvery();
+
+  /**
+   * Returns a new object of class '<em>Filter Event</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Filter Event</em>'.
+   * @generated
+   */
+  FilterEvent createFilterEvent();
+
+  /**
+   * Returns a new object of class '<em>Filter Part</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Filter Part</em>'.
+   * @generated
+   */
+  FilterPart createFilterPart();
+
+  /**
+   * Returns a new object of class '<em>Filter Operator</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Filter Operator</em>'.
+   * @generated
+   */
+  FilterOperator createFilterOperator();
+
+  /**
+   * Returns a new object of class '<em>Comparison Operator</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Comparison Operator</em>'.
+   * @generated
+   */
+  ComparisonOperator createComparisonOperator();
+
+  /**
+   * Returns a new object of class '<em>Logical Operator</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Logical Operator</em>'.
+   * @generated
+   */
+  LogicalOperator createLogicalOperator();
+
+  /**
+   * Returns a new object of class '<em>Event</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Event</em>'.
+   * @generated
+   */
+  Event createEvent();
 
   /**
    * Returns a new object of class '<em>Non Last Select Entry</em>'.

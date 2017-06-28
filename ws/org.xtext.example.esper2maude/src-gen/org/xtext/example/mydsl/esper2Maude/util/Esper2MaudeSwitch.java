@@ -80,10 +80,108 @@ public class Esper2MaudeSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case Esper2MaudePackage.SCHEMA:
+      {
+        Schema schema = (Schema)theEObject;
+        T result = caseSchema(schema);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.EVENT_PROPERTY:
+      {
+        EventProperty eventProperty = (EventProperty)theEObject;
+        T result = caseEventProperty(eventProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case Esper2MaudePackage.PATTERN:
       {
         Pattern pattern = (Pattern)theEObject;
         T result = casePattern(pattern);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.WINDOW:
+      {
+        Window window = (Window)theEObject;
+        T result = caseWindow(window);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.WHERE_FILTER:
+      {
+        WhereFilter whereFilter = (WhereFilter)theEObject;
+        T result = caseWhereFilter(whereFilter);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.FILTER_FROM:
+      {
+        FilterFrom filterFrom = (FilterFrom)theEObject;
+        T result = caseFilterFrom(filterFrom);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.FOLLOWED_BY:
+      {
+        FollowedBy followedBy = (FollowedBy)theEObject;
+        T result = caseFollowedBy(followedBy);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.SUB_FILTER_FOLLOWED_BY:
+      {
+        SubFilterFollowedBy subFilterFollowedBy = (SubFilterFollowedBy)theEObject;
+        T result = caseSubFilterFollowedBy(subFilterFollowedBy);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.EVERY:
+      {
+        Every every = (Every)theEObject;
+        T result = caseEvery(every);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.FILTER_EVENT:
+      {
+        FilterEvent filterEvent = (FilterEvent)theEObject;
+        T result = caseFilterEvent(filterEvent);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.FILTER_PART:
+      {
+        FilterPart filterPart = (FilterPart)theEObject;
+        T result = caseFilterPart(filterPart);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.FILTER_OPERATOR:
+      {
+        FilterOperator filterOperator = (FilterOperator)theEObject;
+        T result = caseFilterOperator(filterOperator);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.COMPARISON_OPERATOR:
+      {
+        ComparisonOperator comparisonOperator = (ComparisonOperator)theEObject;
+        T result = caseComparisonOperator(comparisonOperator);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.LOGICAL_OPERATOR:
+      {
+        LogicalOperator logicalOperator = (LogicalOperator)theEObject;
+        T result = caseLogicalOperator(logicalOperator);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case Esper2MaudePackage.EVENT:
+      {
+        Event event = (Event)theEObject;
+        T result = caseEvent(event);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -136,6 +234,38 @@ public class Esper2MaudeSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Schema</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Schema</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSchema(Schema object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Event Property</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Event Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEventProperty(EventProperty object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Pattern</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -147,6 +277,198 @@ public class Esper2MaudeSwitch<T> extends Switch<T>
    * @generated
    */
   public T casePattern(Pattern object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Window</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Window</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseWindow(Window object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Where Filter</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Where Filter</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseWhereFilter(WhereFilter object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Filter From</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Filter From</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFilterFrom(FilterFrom object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Followed By</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Followed By</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFollowedBy(FollowedBy object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Sub Filter Followed By</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Sub Filter Followed By</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSubFilterFollowedBy(SubFilterFollowedBy object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Every</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Every</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEvery(Every object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Filter Event</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Filter Event</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFilterEvent(FilterEvent object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Filter Part</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Filter Part</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFilterPart(FilterPart object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Filter Operator</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Filter Operator</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFilterOperator(FilterOperator object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Comparison Operator</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Comparison Operator</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseComparisonOperator(ComparisonOperator object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Logical Operator</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Logical Operator</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseLogicalOperator(LogicalOperator object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Event</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Event</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEvent(Event object)
   {
     return null;
   }

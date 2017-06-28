@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.Model#getSchemas <em>Schemas</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.esper2Maude.Model#getPatterns <em>Patterns</em>}</li>
  * </ul>
  *
@@ -25,6 +26,22 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Model extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Schemas</b></em>' containment reference list.
+   * The list contents are of type {@link org.xtext.example.mydsl.esper2Maude.Schema}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Schemas</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Schemas</em>' containment reference list.
+   * @see org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage#getModel_Schemas()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Schema> getSchemas();
+
   /**
    * Returns the value of the '<em><b>Patterns</b></em>' containment reference list.
    * The list contents are of type {@link org.xtext.example.mydsl.esper2Maude.Pattern}.

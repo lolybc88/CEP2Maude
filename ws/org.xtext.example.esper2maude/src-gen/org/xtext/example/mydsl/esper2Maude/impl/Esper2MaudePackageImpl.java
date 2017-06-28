@@ -10,14 +10,28 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.xtext.example.mydsl.esper2Maude.ComparisonOperator;
 import org.xtext.example.mydsl.esper2Maude.Esper2MaudeFactory;
 import org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage;
+import org.xtext.example.mydsl.esper2Maude.Event;
+import org.xtext.example.mydsl.esper2Maude.EventProperty;
+import org.xtext.example.mydsl.esper2Maude.Every;
 import org.xtext.example.mydsl.esper2Maude.Field;
+import org.xtext.example.mydsl.esper2Maude.FilterEvent;
+import org.xtext.example.mydsl.esper2Maude.FilterFrom;
+import org.xtext.example.mydsl.esper2Maude.FilterOperator;
+import org.xtext.example.mydsl.esper2Maude.FilterPart;
+import org.xtext.example.mydsl.esper2Maude.FollowedBy;
 import org.xtext.example.mydsl.esper2Maude.LastSelectEntry;
+import org.xtext.example.mydsl.esper2Maude.LogicalOperator;
 import org.xtext.example.mydsl.esper2Maude.Model;
 import org.xtext.example.mydsl.esper2Maude.NonLastSelectEntry;
 import org.xtext.example.mydsl.esper2Maude.Pattern;
+import org.xtext.example.mydsl.esper2Maude.Schema;
 import org.xtext.example.mydsl.esper2Maude.SelectEntry;
+import org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy;
+import org.xtext.example.mydsl.esper2Maude.WhereFilter;
+import org.xtext.example.mydsl.esper2Maude.Window;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,7 +53,105 @@ public class Esper2MaudePackageImpl extends EPackageImpl implements Esper2MaudeP
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass schemaEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eventPropertyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass patternEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass windowEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass whereFilterEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass filterFromEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass followedByEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass subFilterFollowedByEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass everyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass filterEventEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass filterPartEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass filterOperatorEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass comparisonOperatorEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass logicalOperatorEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eventEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -147,9 +259,89 @@ public class Esper2MaudePackageImpl extends EPackageImpl implements Esper2MaudeP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getModel_Patterns()
+  public EReference getModel_Schemas()
   {
     return (EReference)modelEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getModel_Patterns()
+  {
+    return (EReference)modelEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSchema()
+  {
+    return schemaEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getSchema_Name()
+  {
+    return (EAttribute)schemaEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSchema_Prop()
+  {
+    return (EReference)schemaEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSchema_Props()
+  {
+    return (EReference)schemaEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEventProperty()
+  {
+    return eventPropertyEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEventProperty_Name()
+  {
+    return (EAttribute)eventPropertyEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEventProperty_Type()
+  {
+    return (EAttribute)eventPropertyEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -177,7 +369,7 @@ public class Esper2MaudePackageImpl extends EPackageImpl implements Esper2MaudeP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getPattern_Event()
+  public EAttribute getPattern_Num()
   {
     return (EAttribute)patternEClass.getEStructuralFeatures().get(1);
   }
@@ -187,7 +379,7 @@ public class Esper2MaudePackageImpl extends EPackageImpl implements Esper2MaudeP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPattern_SelectEntries()
+  public EReference getPattern_Event()
   {
     return (EReference)patternEClass.getEStructuralFeatures().get(2);
   }
@@ -197,9 +389,649 @@ public class Esper2MaudePackageImpl extends EPackageImpl implements Esper2MaudeP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPattern_SelectEntry()
+  public EReference getPattern_SelectEntries()
   {
     return (EReference)patternEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPattern_SelectEntry()
+  {
+    return (EReference)patternEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPattern_FromFilter()
+  {
+    return (EReference)patternEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPattern_Win()
+  {
+    return (EReference)patternEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getWindow()
+  {
+    return windowEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getWindow_TypeTime()
+  {
+    return (EAttribute)windowEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getWindow_Num()
+  {
+    return (EAttribute)windowEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getWindow_TypeBatch()
+  {
+    return (EAttribute)windowEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getWhereFilter()
+  {
+    return whereFilterEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getWhereFilter_FilterEventL()
+  {
+    return (EReference)whereFilterEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getWhereFilter_FilterOpL()
+  {
+    return (EReference)whereFilterEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getWhereFilter_Timer()
+  {
+    return (EAttribute)whereFilterEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getWhereFilter_Num()
+  {
+    return (EAttribute)whereFilterEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getWhereFilter_FilterOpR()
+  {
+    return (EReference)whereFilterEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getWhereFilter_FilterEventR()
+  {
+    return (EReference)whereFilterEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getFilterFrom()
+  {
+    return filterFromEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFilterFrom_FollowedBy()
+  {
+    return (EReference)filterFromEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFilterFrom_Left()
+  {
+    return (EReference)filterFromEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFilterFrom_Op()
+  {
+    return (EReference)filterFromEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFilterFrom_Right()
+  {
+    return (EReference)filterFromEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFilterFrom_EventVariable()
+  {
+    return (EAttribute)filterFromEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFilterFrom_EventName()
+  {
+    return (EAttribute)filterFromEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFilterFrom_Filter()
+  {
+    return (EReference)filterFromEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getFollowedBy()
+  {
+    return followedByEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFollowedBy_Left()
+  {
+    return (EReference)followedByEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFollowedBy_Right()
+  {
+    return (EReference)followedByEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFollowedBy_WhereFilter()
+  {
+    return (EReference)followedByEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getSubFilterFollowedBy()
+  {
+    return subFilterFollowedByEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getSubFilterFollowedBy_EventVariable()
+  {
+    return (EAttribute)subFilterFollowedByEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getSubFilterFollowedBy_EventName()
+  {
+    return (EAttribute)subFilterFollowedByEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSubFilterFollowedBy_Filter()
+  {
+    return (EReference)subFilterFollowedByEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSubFilterFollowedBy_Every()
+  {
+    return (EReference)subFilterFollowedByEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEvery()
+  {
+    return everyEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEvery_EventVariable()
+  {
+    return (EAttribute)everyEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEvery_EventName()
+  {
+    return (EAttribute)everyEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEvery_Filter()
+  {
+    return (EReference)everyEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEvery_FilterFrom()
+  {
+    return (EReference)everyEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getFilterEvent()
+  {
+    return filterEventEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFilterEvent_FilterLeftHandSide()
+  {
+    return (EReference)filterEventEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFilterEvent_FilterOp()
+  {
+    return (EReference)filterEventEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFilterEvent_FilterRightHandSide()
+  {
+    return (EReference)filterEventEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getFilterPart()
+  {
+    return filterPartEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFilterPart_EventPropName()
+  {
+    return (EAttribute)filterPartEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFilterPart_EventVariable()
+  {
+    return (EAttribute)filterPartEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFilterPart_Neg()
+  {
+    return (EAttribute)filterPartEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFilterPart_Num()
+  {
+    return (EAttribute)filterPartEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFilterPart_Dec()
+  {
+    return (EAttribute)filterPartEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFilterPart_Str()
+  {
+    return (EAttribute)filterPartEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFilterPart_T()
+  {
+    return (EAttribute)filterPartEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getFilterPart_F()
+  {
+    return (EAttribute)filterPartEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getFilterOperator()
+  {
+    return filterOperatorEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFilterOperator_Comparison()
+  {
+    return (EReference)filterOperatorEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFilterOperator_Logical()
+  {
+    return (EReference)filterOperatorEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getComparisonOperator()
+  {
+    return comparisonOperatorEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getComparisonOperator_Gt()
+  {
+    return (EAttribute)comparisonOperatorEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getComparisonOperator_Ge()
+  {
+    return (EAttribute)comparisonOperatorEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getComparisonOperator_Eq()
+  {
+    return (EAttribute)comparisonOperatorEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getComparisonOperator_Neq()
+  {
+    return (EAttribute)comparisonOperatorEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getComparisonOperator_Lt()
+  {
+    return (EAttribute)comparisonOperatorEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getComparisonOperator_Le()
+  {
+    return (EAttribute)comparisonOperatorEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getLogicalOperator()
+  {
+    return logicalOperatorEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getLogicalOperator_And()
+  {
+    return (EAttribute)logicalOperatorEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getLogicalOperator_Or()
+  {
+    return (EAttribute)logicalOperatorEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEvent()
+  {
+    return eventEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEvent_Name()
+  {
+    return (EAttribute)eventEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -297,9 +1129,29 @@ public class Esper2MaudePackageImpl extends EPackageImpl implements Esper2MaudeP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getField_Name()
+  public EAttribute getField_Star()
   {
     return (EAttribute)fieldEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getField_EventVariable()
+  {
+    return (EAttribute)fieldEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getField_EventPropName()
+  {
+    return (EAttribute)fieldEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -333,13 +1185,99 @@ public class Esper2MaudePackageImpl extends EPackageImpl implements Esper2MaudeP
 
     // Create classes and their features
     modelEClass = createEClass(MODEL);
+    createEReference(modelEClass, MODEL__SCHEMAS);
     createEReference(modelEClass, MODEL__PATTERNS);
+
+    schemaEClass = createEClass(SCHEMA);
+    createEAttribute(schemaEClass, SCHEMA__NAME);
+    createEReference(schemaEClass, SCHEMA__PROP);
+    createEReference(schemaEClass, SCHEMA__PROPS);
+
+    eventPropertyEClass = createEClass(EVENT_PROPERTY);
+    createEAttribute(eventPropertyEClass, EVENT_PROPERTY__NAME);
+    createEAttribute(eventPropertyEClass, EVENT_PROPERTY__TYPE);
 
     patternEClass = createEClass(PATTERN);
     createEAttribute(patternEClass, PATTERN__NAME);
-    createEAttribute(patternEClass, PATTERN__EVENT);
+    createEAttribute(patternEClass, PATTERN__NUM);
+    createEReference(patternEClass, PATTERN__EVENT);
     createEReference(patternEClass, PATTERN__SELECT_ENTRIES);
     createEReference(patternEClass, PATTERN__SELECT_ENTRY);
+    createEReference(patternEClass, PATTERN__FROM_FILTER);
+    createEReference(patternEClass, PATTERN__WIN);
+
+    windowEClass = createEClass(WINDOW);
+    createEAttribute(windowEClass, WINDOW__TYPE_TIME);
+    createEAttribute(windowEClass, WINDOW__NUM);
+    createEAttribute(windowEClass, WINDOW__TYPE_BATCH);
+
+    whereFilterEClass = createEClass(WHERE_FILTER);
+    createEReference(whereFilterEClass, WHERE_FILTER__FILTER_EVENT_L);
+    createEReference(whereFilterEClass, WHERE_FILTER__FILTER_OP_L);
+    createEAttribute(whereFilterEClass, WHERE_FILTER__TIMER);
+    createEAttribute(whereFilterEClass, WHERE_FILTER__NUM);
+    createEReference(whereFilterEClass, WHERE_FILTER__FILTER_OP_R);
+    createEReference(whereFilterEClass, WHERE_FILTER__FILTER_EVENT_R);
+
+    filterFromEClass = createEClass(FILTER_FROM);
+    createEReference(filterFromEClass, FILTER_FROM__FOLLOWED_BY);
+    createEReference(filterFromEClass, FILTER_FROM__LEFT);
+    createEReference(filterFromEClass, FILTER_FROM__OP);
+    createEReference(filterFromEClass, FILTER_FROM__RIGHT);
+    createEAttribute(filterFromEClass, FILTER_FROM__EVENT_VARIABLE);
+    createEAttribute(filterFromEClass, FILTER_FROM__EVENT_NAME);
+    createEReference(filterFromEClass, FILTER_FROM__FILTER);
+
+    followedByEClass = createEClass(FOLLOWED_BY);
+    createEReference(followedByEClass, FOLLOWED_BY__LEFT);
+    createEReference(followedByEClass, FOLLOWED_BY__RIGHT);
+    createEReference(followedByEClass, FOLLOWED_BY__WHERE_FILTER);
+
+    subFilterFollowedByEClass = createEClass(SUB_FILTER_FOLLOWED_BY);
+    createEAttribute(subFilterFollowedByEClass, SUB_FILTER_FOLLOWED_BY__EVENT_VARIABLE);
+    createEAttribute(subFilterFollowedByEClass, SUB_FILTER_FOLLOWED_BY__EVENT_NAME);
+    createEReference(subFilterFollowedByEClass, SUB_FILTER_FOLLOWED_BY__FILTER);
+    createEReference(subFilterFollowedByEClass, SUB_FILTER_FOLLOWED_BY__EVERY);
+
+    everyEClass = createEClass(EVERY);
+    createEAttribute(everyEClass, EVERY__EVENT_VARIABLE);
+    createEAttribute(everyEClass, EVERY__EVENT_NAME);
+    createEReference(everyEClass, EVERY__FILTER);
+    createEReference(everyEClass, EVERY__FILTER_FROM);
+
+    filterEventEClass = createEClass(FILTER_EVENT);
+    createEReference(filterEventEClass, FILTER_EVENT__FILTER_LEFT_HAND_SIDE);
+    createEReference(filterEventEClass, FILTER_EVENT__FILTER_OP);
+    createEReference(filterEventEClass, FILTER_EVENT__FILTER_RIGHT_HAND_SIDE);
+
+    filterPartEClass = createEClass(FILTER_PART);
+    createEAttribute(filterPartEClass, FILTER_PART__EVENT_PROP_NAME);
+    createEAttribute(filterPartEClass, FILTER_PART__EVENT_VARIABLE);
+    createEAttribute(filterPartEClass, FILTER_PART__NEG);
+    createEAttribute(filterPartEClass, FILTER_PART__NUM);
+    createEAttribute(filterPartEClass, FILTER_PART__DEC);
+    createEAttribute(filterPartEClass, FILTER_PART__STR);
+    createEAttribute(filterPartEClass, FILTER_PART__T);
+    createEAttribute(filterPartEClass, FILTER_PART__F);
+
+    filterOperatorEClass = createEClass(FILTER_OPERATOR);
+    createEReference(filterOperatorEClass, FILTER_OPERATOR__COMPARISON);
+    createEReference(filterOperatorEClass, FILTER_OPERATOR__LOGICAL);
+
+    comparisonOperatorEClass = createEClass(COMPARISON_OPERATOR);
+    createEAttribute(comparisonOperatorEClass, COMPARISON_OPERATOR__GT);
+    createEAttribute(comparisonOperatorEClass, COMPARISON_OPERATOR__GE);
+    createEAttribute(comparisonOperatorEClass, COMPARISON_OPERATOR__EQ);
+    createEAttribute(comparisonOperatorEClass, COMPARISON_OPERATOR__NEQ);
+    createEAttribute(comparisonOperatorEClass, COMPARISON_OPERATOR__LT);
+    createEAttribute(comparisonOperatorEClass, COMPARISON_OPERATOR__LE);
+
+    logicalOperatorEClass = createEClass(LOGICAL_OPERATOR);
+    createEAttribute(logicalOperatorEClass, LOGICAL_OPERATOR__AND);
+    createEAttribute(logicalOperatorEClass, LOGICAL_OPERATOR__OR);
+
+    eventEClass = createEClass(EVENT);
+    createEAttribute(eventEClass, EVENT__NAME);
 
     nonLastSelectEntryEClass = createEClass(NON_LAST_SELECT_ENTRY);
     createEReference(nonLastSelectEntryEClass, NON_LAST_SELECT_ENTRY__ENTRY);
@@ -353,7 +1291,9 @@ public class Esper2MaudePackageImpl extends EPackageImpl implements Esper2MaudeP
     createEAttribute(selectEntryEClass, SELECT_ENTRY__GROUP_OP);
 
     fieldEClass = createEClass(FIELD);
-    createEAttribute(fieldEClass, FIELD__NAME);
+    createEAttribute(fieldEClass, FIELD__STAR);
+    createEAttribute(fieldEClass, FIELD__EVENT_VARIABLE);
+    createEAttribute(fieldEClass, FIELD__EVENT_PROP_NAME);
   }
 
   /**
@@ -388,13 +1328,99 @@ public class Esper2MaudePackageImpl extends EPackageImpl implements Esper2MaudeP
 
     // Initialize classes and features; add operations and parameters
     initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getModel_Schemas(), this.getSchema(), null, "schemas", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getModel_Patterns(), this.getPattern(), null, "patterns", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(schemaEClass, Schema.class, "Schema", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getSchema_Name(), ecorePackage.getEString(), "name", null, 0, 1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSchema_Prop(), this.getEventProperty(), null, "prop", null, 0, 1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSchema_Props(), this.getEventProperty(), null, "props", null, 0, -1, Schema.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eventPropertyEClass, EventProperty.class, "EventProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEventProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, EventProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEventProperty_Type(), ecorePackage.getEString(), "type", null, 0, 1, EventProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(patternEClass, Pattern.class, "Pattern", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPattern_Name(), ecorePackage.getEString(), "name", null, 0, 1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getPattern_Event(), ecorePackage.getEString(), "event", null, 0, 1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPattern_Num(), ecorePackage.getEInt(), "num", null, 0, 1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPattern_Event(), this.getEvent(), null, "event", null, 0, 1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPattern_SelectEntries(), this.getNonLastSelectEntry(), null, "selectEntries", null, 0, -1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPattern_SelectEntry(), this.getLastSelectEntry(), null, "selectEntry", null, 0, 1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPattern_FromFilter(), this.getFilterFrom(), null, "fromFilter", null, 0, 1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPattern_Win(), this.getWindow(), null, "win", null, 0, 1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(windowEClass, Window.class, "Window", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getWindow_TypeTime(), ecorePackage.getEString(), "typeTime", null, 0, 1, Window.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getWindow_Num(), ecorePackage.getEInt(), "num", null, 0, 1, Window.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getWindow_TypeBatch(), ecorePackage.getEString(), "typeBatch", null, 0, 1, Window.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(whereFilterEClass, WhereFilter.class, "WhereFilter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getWhereFilter_FilterEventL(), this.getFilterEvent(), null, "filterEventL", null, 0, 1, WhereFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getWhereFilter_FilterOpL(), this.getFilterOperator(), null, "filterOpL", null, 0, 1, WhereFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getWhereFilter_Timer(), ecorePackage.getEString(), "timer", null, 0, 1, WhereFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getWhereFilter_Num(), ecorePackage.getEInt(), "num", null, 0, 1, WhereFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getWhereFilter_FilterOpR(), this.getFilterOperator(), null, "filterOpR", null, 0, 1, WhereFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getWhereFilter_FilterEventR(), this.getFilterEvent(), null, "filterEventR", null, 0, 1, WhereFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(filterFromEClass, FilterFrom.class, "FilterFrom", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFilterFrom_FollowedBy(), this.getFollowedBy(), null, "followedBy", null, 0, 1, FilterFrom.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFilterFrom_Left(), this.getFilterFrom(), null, "left", null, 0, 1, FilterFrom.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFilterFrom_Op(), this.getLogicalOperator(), null, "op", null, 0, 1, FilterFrom.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFilterFrom_Right(), this.getFilterFrom(), null, "right", null, 0, 1, FilterFrom.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFilterFrom_EventVariable(), ecorePackage.getEString(), "eventVariable", null, 0, 1, FilterFrom.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFilterFrom_EventName(), ecorePackage.getEString(), "eventName", null, 0, 1, FilterFrom.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFilterFrom_Filter(), this.getFilterEvent(), null, "filter", null, 0, 1, FilterFrom.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(followedByEClass, FollowedBy.class, "FollowedBy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFollowedBy_Left(), this.getSubFilterFollowedBy(), null, "left", null, 0, 1, FollowedBy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFollowedBy_Right(), this.getSubFilterFollowedBy(), null, "right", null, 0, 1, FollowedBy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFollowedBy_WhereFilter(), this.getWhereFilter(), null, "whereFilter", null, 0, 1, FollowedBy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(subFilterFollowedByEClass, SubFilterFollowedBy.class, "SubFilterFollowedBy", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getSubFilterFollowedBy_EventVariable(), ecorePackage.getEString(), "eventVariable", null, 0, 1, SubFilterFollowedBy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSubFilterFollowedBy_EventName(), ecorePackage.getEString(), "eventName", null, 0, 1, SubFilterFollowedBy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSubFilterFollowedBy_Filter(), this.getFilterEvent(), null, "filter", null, 0, 1, SubFilterFollowedBy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getSubFilterFollowedBy_Every(), this.getEvery(), null, "every", null, 0, 1, SubFilterFollowedBy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(everyEClass, Every.class, "Every", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEvery_EventVariable(), ecorePackage.getEString(), "eventVariable", null, 0, 1, Every.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEvery_EventName(), ecorePackage.getEString(), "eventName", null, 0, 1, Every.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEvery_Filter(), this.getFilterEvent(), null, "filter", null, 0, 1, Every.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEvery_FilterFrom(), this.getFilterFrom(), null, "filterFrom", null, 0, 1, Every.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(filterEventEClass, FilterEvent.class, "FilterEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFilterEvent_FilterLeftHandSide(), this.getFilterPart(), null, "filterLeftHandSide", null, 0, 1, FilterEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFilterEvent_FilterOp(), this.getFilterOperator(), null, "filterOp", null, 0, 1, FilterEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFilterEvent_FilterRightHandSide(), this.getFilterPart(), null, "filterRightHandSide", null, 0, 1, FilterEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(filterPartEClass, FilterPart.class, "FilterPart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getFilterPart_EventPropName(), ecorePackage.getEString(), "eventPropName", null, 0, 1, FilterPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFilterPart_EventVariable(), ecorePackage.getEString(), "eventVariable", null, 0, 1, FilterPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFilterPart_Neg(), ecorePackage.getEString(), "neg", null, 0, 1, FilterPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFilterPart_Num(), ecorePackage.getEInt(), "num", null, 0, 1, FilterPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFilterPart_Dec(), ecorePackage.getEInt(), "dec", null, 0, 1, FilterPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFilterPart_Str(), ecorePackage.getEString(), "str", null, 0, 1, FilterPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFilterPart_T(), ecorePackage.getEString(), "t", null, 0, 1, FilterPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getFilterPart_F(), ecorePackage.getEString(), "f", null, 0, 1, FilterPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(filterOperatorEClass, FilterOperator.class, "FilterOperator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFilterOperator_Comparison(), this.getComparisonOperator(), null, "comparison", null, 0, 1, FilterOperator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFilterOperator_Logical(), this.getLogicalOperator(), null, "logical", null, 0, 1, FilterOperator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(comparisonOperatorEClass, ComparisonOperator.class, "ComparisonOperator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getComparisonOperator_Gt(), ecorePackage.getEString(), "gt", null, 0, 1, ComparisonOperator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getComparisonOperator_Ge(), ecorePackage.getEString(), "ge", null, 0, 1, ComparisonOperator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getComparisonOperator_Eq(), ecorePackage.getEString(), "eq", null, 0, 1, ComparisonOperator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getComparisonOperator_Neq(), ecorePackage.getEString(), "neq", null, 0, 1, ComparisonOperator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getComparisonOperator_Lt(), ecorePackage.getEString(), "lt", null, 0, 1, ComparisonOperator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getComparisonOperator_Le(), ecorePackage.getEString(), "le", null, 0, 1, ComparisonOperator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(logicalOperatorEClass, LogicalOperator.class, "LogicalOperator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getLogicalOperator_And(), ecorePackage.getEString(), "and", null, 0, 1, LogicalOperator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getLogicalOperator_Or(), ecorePackage.getEString(), "or", null, 0, 1, LogicalOperator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eventEClass, Event.class, "Event", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEvent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(nonLastSelectEntryEClass, NonLastSelectEntry.class, "NonLastSelectEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getNonLastSelectEntry_Entry(), this.getSelectEntry(), null, "entry", null, 0, 1, NonLastSelectEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -408,7 +1434,9 @@ public class Esper2MaudePackageImpl extends EPackageImpl implements Esper2MaudeP
     initEAttribute(getSelectEntry_GroupOp(), ecorePackage.getEString(), "groupOp", null, 0, 1, SelectEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(fieldEClass, Field.class, "Field", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getField_Name(), ecorePackage.getEString(), "name", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getField_Star(), ecorePackage.getEString(), "star", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getField_EventVariable(), ecorePackage.getEString(), "eventVariable", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getField_EventPropName(), ecorePackage.getEString(), "eventPropName", null, 0, 1, Field.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

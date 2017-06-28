@@ -14,13 +14,27 @@ import org.eclipse.xtext.serializer.ISerializationContext;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
+import org.xtext.example.mydsl.esper2Maude.ComparisonOperator;
 import org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage;
+import org.xtext.example.mydsl.esper2Maude.Event;
+import org.xtext.example.mydsl.esper2Maude.EventProperty;
+import org.xtext.example.mydsl.esper2Maude.Every;
 import org.xtext.example.mydsl.esper2Maude.Field;
+import org.xtext.example.mydsl.esper2Maude.FilterEvent;
+import org.xtext.example.mydsl.esper2Maude.FilterFrom;
+import org.xtext.example.mydsl.esper2Maude.FilterOperator;
+import org.xtext.example.mydsl.esper2Maude.FilterPart;
+import org.xtext.example.mydsl.esper2Maude.FollowedBy;
 import org.xtext.example.mydsl.esper2Maude.LastSelectEntry;
+import org.xtext.example.mydsl.esper2Maude.LogicalOperator;
 import org.xtext.example.mydsl.esper2Maude.Model;
 import org.xtext.example.mydsl.esper2Maude.NonLastSelectEntry;
 import org.xtext.example.mydsl.esper2Maude.Pattern;
+import org.xtext.example.mydsl.esper2Maude.Schema;
 import org.xtext.example.mydsl.esper2Maude.SelectEntry;
+import org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy;
+import org.xtext.example.mydsl.esper2Maude.WhereFilter;
+import org.xtext.example.mydsl.esper2Maude.Window;
 import org.xtext.example.mydsl.services.Esper2MaudeGrammarAccess;
 
 @SuppressWarnings("all")
@@ -37,11 +51,41 @@ public class Esper2MaudeSemanticSequencer extends AbstractDelegatingSemanticSequ
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == Esper2MaudePackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case Esper2MaudePackage.COMPARISON_OPERATOR:
+				sequence_ComparisonOperator(context, (ComparisonOperator) semanticObject); 
+				return; 
+			case Esper2MaudePackage.EVENT:
+				sequence_Event(context, (Event) semanticObject); 
+				return; 
+			case Esper2MaudePackage.EVENT_PROPERTY:
+				sequence_EventProperty(context, (EventProperty) semanticObject); 
+				return; 
+			case Esper2MaudePackage.EVERY:
+				sequence_Every(context, (Every) semanticObject); 
+				return; 
 			case Esper2MaudePackage.FIELD:
 				sequence_Field(context, (Field) semanticObject); 
 				return; 
+			case Esper2MaudePackage.FILTER_EVENT:
+				sequence_FilterEvent(context, (FilterEvent) semanticObject); 
+				return; 
+			case Esper2MaudePackage.FILTER_FROM:
+				sequence_FilterFrom(context, (FilterFrom) semanticObject); 
+				return; 
+			case Esper2MaudePackage.FILTER_OPERATOR:
+				sequence_FilterOperator(context, (FilterOperator) semanticObject); 
+				return; 
+			case Esper2MaudePackage.FILTER_PART:
+				sequence_FilterPart(context, (FilterPart) semanticObject); 
+				return; 
+			case Esper2MaudePackage.FOLLOWED_BY:
+				sequence_FollowedBy(context, (FollowedBy) semanticObject); 
+				return; 
 			case Esper2MaudePackage.LAST_SELECT_ENTRY:
 				sequence_LastSelectEntry(context, (LastSelectEntry) semanticObject); 
+				return; 
+			case Esper2MaudePackage.LOGICAL_OPERATOR:
+				sequence_LogicalOperator(context, (LogicalOperator) semanticObject); 
 				return; 
 			case Esper2MaudePackage.MODEL:
 				sequence_Model(context, (Model) semanticObject); 
@@ -52,8 +96,20 @@ public class Esper2MaudeSemanticSequencer extends AbstractDelegatingSemanticSequ
 			case Esper2MaudePackage.PATTERN:
 				sequence_Pattern(context, (Pattern) semanticObject); 
 				return; 
+			case Esper2MaudePackage.SCHEMA:
+				sequence_Schema(context, (Schema) semanticObject); 
+				return; 
 			case Esper2MaudePackage.SELECT_ENTRY:
 				sequence_SelectEntry(context, (SelectEntry) semanticObject); 
+				return; 
+			case Esper2MaudePackage.SUB_FILTER_FOLLOWED_BY:
+				sequence_SubFilterFollowedBy(context, (SubFilterFollowedBy) semanticObject); 
+				return; 
+			case Esper2MaudePackage.WHERE_FILTER:
+				sequence_WhereFilter(context, (WhereFilter) semanticObject); 
+				return; 
+			case Esper2MaudePackage.WINDOW:
+				sequence_Window(context, (Window) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null)
@@ -62,19 +118,162 @@ public class Esper2MaudeSemanticSequencer extends AbstractDelegatingSemanticSequ
 	
 	/**
 	 * Contexts:
-	 *     Field returns Field
+	 *     ComparisonOperator returns ComparisonOperator
+	 *
+	 * Constraint:
+	 *     (
+	 *         gt='>' | 
+	 *         ge='>=' | 
+	 *         eq='=' | 
+	 *         neq='<>' | 
+	 *         lt='<' | 
+	 *         le='<='
+	 *     )
+	 */
+	protected void sequence_ComparisonOperator(ISerializationContext context, ComparisonOperator semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     EventProperty returns EventProperty
+	 *
+	 * Constraint:
+	 *     (name=ID type=PROP_TYPE)
+	 */
+	protected void sequence_EventProperty(ISerializationContext context, EventProperty semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, Esper2MaudePackage.Literals.EVENT_PROPERTY__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, Esper2MaudePackage.Literals.EVENT_PROPERTY__NAME));
+			if (transientValues.isValueTransient(semanticObject, Esper2MaudePackage.Literals.EVENT_PROPERTY__TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, Esper2MaudePackage.Literals.EVENT_PROPERTY__TYPE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getEventPropertyAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getEventPropertyAccess().getTypePROP_TYPETerminalRuleCall_1_0(), semanticObject.getType());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Event returns Event
 	 *
 	 * Constraint:
 	 *     name=ID
 	 */
-	protected void sequence_Field(ISerializationContext context, Field semanticObject) {
+	protected void sequence_Event(ISerializationContext context, Event semanticObject) {
 		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, Esper2MaudePackage.Literals.FIELD__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, Esper2MaudePackage.Literals.FIELD__NAME));
+			if (transientValues.isValueTransient(semanticObject, Esper2MaudePackage.Literals.EVENT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, Esper2MaudePackage.Literals.EVENT__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getFieldAccess().getNameIDTerminalRuleCall_1_1_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getEventAccess().getNameIDTerminalRuleCall_0(), semanticObject.getName());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Every returns Every
+	 *
+	 * Constraint:
+	 *     ((eventVariable=ID? eventName=ID filter=FilterEvent?) | filterFrom=FilterFrom)
+	 */
+	protected void sequence_Every(ISerializationContext context, Every semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Field returns Field
+	 *
+	 * Constraint:
+	 *     (star='*' | (eventVariable=ID eventPropName=ID))
+	 */
+	protected void sequence_Field(ISerializationContext context, Field semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FilterEvent returns FilterEvent
+	 *
+	 * Constraint:
+	 *     (filterLeftHandSide=FilterPart filterOp=FilterOperator filterRightHandSide=FilterPart)
+	 */
+	protected void sequence_FilterEvent(ISerializationContext context, FilterEvent semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, Esper2MaudePackage.Literals.FILTER_EVENT__FILTER_LEFT_HAND_SIDE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, Esper2MaudePackage.Literals.FILTER_EVENT__FILTER_LEFT_HAND_SIDE));
+			if (transientValues.isValueTransient(semanticObject, Esper2MaudePackage.Literals.FILTER_EVENT__FILTER_OP) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, Esper2MaudePackage.Literals.FILTER_EVENT__FILTER_OP));
+			if (transientValues.isValueTransient(semanticObject, Esper2MaudePackage.Literals.FILTER_EVENT__FILTER_RIGHT_HAND_SIDE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, Esper2MaudePackage.Literals.FILTER_EVENT__FILTER_RIGHT_HAND_SIDE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getFilterEventAccess().getFilterLeftHandSideFilterPartParserRuleCall_0_0(), semanticObject.getFilterLeftHandSide());
+		feeder.accept(grammarAccess.getFilterEventAccess().getFilterOpFilterOperatorParserRuleCall_1_0(), semanticObject.getFilterOp());
+		feeder.accept(grammarAccess.getFilterEventAccess().getFilterRightHandSideFilterPartParserRuleCall_2_0(), semanticObject.getFilterRightHandSide());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FilterFrom returns FilterFrom
+	 *
+	 * Constraint:
+	 *     (followedBy=FollowedBy | (left=FilterFrom op=LogicalOperator right=FilterFrom) | (eventVariable=ID? eventName=ID filter=FilterEvent?))
+	 */
+	protected void sequence_FilterFrom(ISerializationContext context, FilterFrom semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FilterOperator returns FilterOperator
+	 *
+	 * Constraint:
+	 *     (comparison=ComparisonOperator | logical=LogicalOperator)
+	 */
+	protected void sequence_FilterOperator(ISerializationContext context, FilterOperator semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FilterPart returns FilterPart
+	 *
+	 * Constraint:
+	 *     (
+	 *         eventPropName=ID | 
+	 *         (eventVariable=ID eventPropName=ID) | 
+	 *         (neg='-'? num=INT dec=INT?) | 
+	 *         str=STRING | 
+	 *         t='true' | 
+	 *         f='false'
+	 *     )
+	 */
+	protected void sequence_FilterPart(ISerializationContext context, FilterPart semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FollowedBy returns FollowedBy
+	 *
+	 * Constraint:
+	 *     (left=SubFilterFollowedBy right=SubFilterFollowedBy whereFilter=WhereFilter?)
+	 */
+	protected void sequence_FollowedBy(ISerializationContext context, FollowedBy semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -98,10 +297,22 @@ public class Esper2MaudeSemanticSequencer extends AbstractDelegatingSemanticSequ
 	
 	/**
 	 * Contexts:
+	 *     LogicalOperator returns LogicalOperator
+	 *
+	 * Constraint:
+	 *     (and='and' | or='or')
+	 */
+	protected void sequence_LogicalOperator(ISerializationContext context, LogicalOperator semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     Model returns Model
 	 *
 	 * Constraint:
-	 *     patterns+=Pattern+
+	 *     ((schemas+=Schema+ patterns+=Pattern+) | patterns+=Pattern+)?
 	 */
 	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -131,9 +342,29 @@ public class Esper2MaudeSemanticSequencer extends AbstractDelegatingSemanticSequ
 	 *     Pattern returns Pattern
 	 *
 	 * Constraint:
-	 *     (name=STRING event=ID selectEntries+=NonLastSelectEntry* selectEntry=LastSelectEntry)
+	 *     (
+	 *         name=STRING 
+	 *         num=INT 
+	 *         event=Event 
+	 *         selectEntries+=NonLastSelectEntry* 
+	 *         selectEntry=LastSelectEntry 
+	 *         fromFilter=FilterFrom 
+	 *         win=Window?
+	 *     )
 	 */
 	protected void sequence_Pattern(ISerializationContext context, Pattern semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Schema returns Schema
+	 *
+	 * Constraint:
+	 *     (name=ID prop=EventProperty? props+=EventProperty*)
+	 */
+	protected void sequence_Schema(ISerializationContext context, Schema semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -143,9 +374,49 @@ public class Esper2MaudeSemanticSequencer extends AbstractDelegatingSemanticSequ
 	 *     SelectEntry returns SelectEntry
 	 *
 	 * Constraint:
-	 *     ((field=Field alias=ID?) | (groupOp=GroupOp field=Field alias=ID?))
+	 *     ((field=Field alias=ID?) | (groupOp=GROUP_OP field=Field alias=ID?))
 	 */
 	protected void sequence_SelectEntry(ISerializationContext context, SelectEntry semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     SubFilterFollowedBy returns SubFilterFollowedBy
+	 *
+	 * Constraint:
+	 *     ((eventVariable=ID? eventName=ID filter=FilterEvent?) | filter=FilterEvent | every=Every)
+	 */
+	protected void sequence_SubFilterFollowedBy(ISerializationContext context, SubFilterFollowedBy semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     WhereFilter returns WhereFilter
+	 *
+	 * Constraint:
+	 *     (
+	 *         ((filterEventL=FilterEvent filterOpL=FilterOperator)? timer='timer:within' num=INT (filterOpR=FilterOperator filterEventR=FilterEvent)) | 
+	 *         ((filterEventL=FilterEvent filterOpL=FilterOperator)? (filterOpR=FilterOperator filterEventR=FilterEvent)) | 
+	 *         (filterOpR=FilterOperator filterEventR=FilterEvent)
+	 *     )?
+	 */
+	protected void sequence_WhereFilter(ISerializationContext context, WhereFilter semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     Window returns Window
+	 *
+	 * Constraint:
+	 *     ((typeTime='win:time' num=INT) | (typeBatch='win:time_batch' num=INT))
+	 */
+	protected void sequence_Window(ISerializationContext context, Window semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

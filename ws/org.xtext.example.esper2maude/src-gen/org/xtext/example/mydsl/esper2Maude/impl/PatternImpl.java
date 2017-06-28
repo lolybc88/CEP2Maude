@@ -20,9 +20,12 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage;
+import org.xtext.example.mydsl.esper2Maude.Event;
+import org.xtext.example.mydsl.esper2Maude.FilterFrom;
 import org.xtext.example.mydsl.esper2Maude.LastSelectEntry;
 import org.xtext.example.mydsl.esper2Maude.NonLastSelectEntry;
 import org.xtext.example.mydsl.esper2Maude.Pattern;
+import org.xtext.example.mydsl.esper2Maude.Window;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,9 +36,12 @@ import org.xtext.example.mydsl.esper2Maude.Pattern;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.PatternImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.PatternImpl#getNum <em>Num</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.PatternImpl#getEvent <em>Event</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.PatternImpl#getSelectEntries <em>Select Entries</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.PatternImpl#getSelectEntry <em>Select Entry</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.PatternImpl#getFromFilter <em>From Filter</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.PatternImpl#getWin <em>Win</em>}</li>
  * </ul>
  *
  * @generated
@@ -63,24 +69,34 @@ public class PatternImpl extends MinimalEObjectImpl.Container implements Pattern
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getEvent() <em>Event</em>}' attribute.
+   * The default value of the '{@link #getNum() <em>Num</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getEvent()
+   * @see #getNum()
    * @generated
    * @ordered
    */
-  protected static final String EVENT_EDEFAULT = null;
+  protected static final int NUM_EDEFAULT = 0;
 
   /**
-   * The cached value of the '{@link #getEvent() <em>Event</em>}' attribute.
+   * The cached value of the '{@link #getNum() <em>Num</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getNum()
+   * @generated
+   * @ordered
+   */
+  protected int num = NUM_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getEvent() <em>Event</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getEvent()
    * @generated
    * @ordered
    */
-  protected String event = EVENT_EDEFAULT;
+  protected Event event;
 
   /**
    * The cached value of the '{@link #getSelectEntries() <em>Select Entries</em>}' containment reference list.
@@ -101,6 +117,26 @@ public class PatternImpl extends MinimalEObjectImpl.Container implements Pattern
    * @ordered
    */
   protected LastSelectEntry selectEntry;
+
+  /**
+   * The cached value of the '{@link #getFromFilter() <em>From Filter</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFromFilter()
+   * @generated
+   * @ordered
+   */
+  protected FilterFrom fromFilter;
+
+  /**
+   * The cached value of the '{@link #getWin() <em>Win</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getWin()
+   * @generated
+   * @ordered
+   */
+  protected Window win;
 
   /**
    * <!-- begin-user-doc -->
@@ -151,7 +187,30 @@ public class PatternImpl extends MinimalEObjectImpl.Container implements Pattern
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getEvent()
+  public int getNum()
+  {
+    return num;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setNum(int newNum)
+  {
+    int oldNum = num;
+    num = newNum;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, Esper2MaudePackage.PATTERN__NUM, oldNum, num));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Event getEvent()
   {
     return event;
   }
@@ -161,12 +220,37 @@ public class PatternImpl extends MinimalEObjectImpl.Container implements Pattern
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setEvent(String newEvent)
+  public NotificationChain basicSetEvent(Event newEvent, NotificationChain msgs)
   {
-    String oldEvent = event;
+    Event oldEvent = event;
     event = newEvent;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, Esper2MaudePackage.PATTERN__EVENT, oldEvent, event));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, Esper2MaudePackage.PATTERN__EVENT, oldEvent, newEvent);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setEvent(Event newEvent)
+  {
+    if (newEvent != event)
+    {
+      NotificationChain msgs = null;
+      if (event != null)
+        msgs = ((InternalEObject)event).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - Esper2MaudePackage.PATTERN__EVENT, null, msgs);
+      if (newEvent != null)
+        msgs = ((InternalEObject)newEvent).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - Esper2MaudePackage.PATTERN__EVENT, null, msgs);
+      msgs = basicSetEvent(newEvent, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, Esper2MaudePackage.PATTERN__EVENT, newEvent, newEvent));
   }
 
   /**
@@ -236,15 +320,117 @@ public class PatternImpl extends MinimalEObjectImpl.Container implements Pattern
    * <!-- end-user-doc -->
    * @generated
    */
+  public FilterFrom getFromFilter()
+  {
+    return fromFilter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetFromFilter(FilterFrom newFromFilter, NotificationChain msgs)
+  {
+    FilterFrom oldFromFilter = fromFilter;
+    fromFilter = newFromFilter;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, Esper2MaudePackage.PATTERN__FROM_FILTER, oldFromFilter, newFromFilter);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFromFilter(FilterFrom newFromFilter)
+  {
+    if (newFromFilter != fromFilter)
+    {
+      NotificationChain msgs = null;
+      if (fromFilter != null)
+        msgs = ((InternalEObject)fromFilter).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - Esper2MaudePackage.PATTERN__FROM_FILTER, null, msgs);
+      if (newFromFilter != null)
+        msgs = ((InternalEObject)newFromFilter).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - Esper2MaudePackage.PATTERN__FROM_FILTER, null, msgs);
+      msgs = basicSetFromFilter(newFromFilter, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, Esper2MaudePackage.PATTERN__FROM_FILTER, newFromFilter, newFromFilter));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Window getWin()
+  {
+    return win;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetWin(Window newWin, NotificationChain msgs)
+  {
+    Window oldWin = win;
+    win = newWin;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, Esper2MaudePackage.PATTERN__WIN, oldWin, newWin);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setWin(Window newWin)
+  {
+    if (newWin != win)
+    {
+      NotificationChain msgs = null;
+      if (win != null)
+        msgs = ((InternalEObject)win).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - Esper2MaudePackage.PATTERN__WIN, null, msgs);
+      if (newWin != null)
+        msgs = ((InternalEObject)newWin).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - Esper2MaudePackage.PATTERN__WIN, null, msgs);
+      msgs = basicSetWin(newWin, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, Esper2MaudePackage.PATTERN__WIN, newWin, newWin));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
+      case Esper2MaudePackage.PATTERN__EVENT:
+        return basicSetEvent(null, msgs);
       case Esper2MaudePackage.PATTERN__SELECT_ENTRIES:
         return ((InternalEList<?>)getSelectEntries()).basicRemove(otherEnd, msgs);
       case Esper2MaudePackage.PATTERN__SELECT_ENTRY:
         return basicSetSelectEntry(null, msgs);
+      case Esper2MaudePackage.PATTERN__FROM_FILTER:
+        return basicSetFromFilter(null, msgs);
+      case Esper2MaudePackage.PATTERN__WIN:
+        return basicSetWin(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -261,12 +447,18 @@ public class PatternImpl extends MinimalEObjectImpl.Container implements Pattern
     {
       case Esper2MaudePackage.PATTERN__NAME:
         return getName();
+      case Esper2MaudePackage.PATTERN__NUM:
+        return getNum();
       case Esper2MaudePackage.PATTERN__EVENT:
         return getEvent();
       case Esper2MaudePackage.PATTERN__SELECT_ENTRIES:
         return getSelectEntries();
       case Esper2MaudePackage.PATTERN__SELECT_ENTRY:
         return getSelectEntry();
+      case Esper2MaudePackage.PATTERN__FROM_FILTER:
+        return getFromFilter();
+      case Esper2MaudePackage.PATTERN__WIN:
+        return getWin();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -285,8 +477,11 @@ public class PatternImpl extends MinimalEObjectImpl.Container implements Pattern
       case Esper2MaudePackage.PATTERN__NAME:
         setName((String)newValue);
         return;
+      case Esper2MaudePackage.PATTERN__NUM:
+        setNum((Integer)newValue);
+        return;
       case Esper2MaudePackage.PATTERN__EVENT:
-        setEvent((String)newValue);
+        setEvent((Event)newValue);
         return;
       case Esper2MaudePackage.PATTERN__SELECT_ENTRIES:
         getSelectEntries().clear();
@@ -294,6 +489,12 @@ public class PatternImpl extends MinimalEObjectImpl.Container implements Pattern
         return;
       case Esper2MaudePackage.PATTERN__SELECT_ENTRY:
         setSelectEntry((LastSelectEntry)newValue);
+        return;
+      case Esper2MaudePackage.PATTERN__FROM_FILTER:
+        setFromFilter((FilterFrom)newValue);
+        return;
+      case Esper2MaudePackage.PATTERN__WIN:
+        setWin((Window)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -312,14 +513,23 @@ public class PatternImpl extends MinimalEObjectImpl.Container implements Pattern
       case Esper2MaudePackage.PATTERN__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case Esper2MaudePackage.PATTERN__NUM:
+        setNum(NUM_EDEFAULT);
+        return;
       case Esper2MaudePackage.PATTERN__EVENT:
-        setEvent(EVENT_EDEFAULT);
+        setEvent((Event)null);
         return;
       case Esper2MaudePackage.PATTERN__SELECT_ENTRIES:
         getSelectEntries().clear();
         return;
       case Esper2MaudePackage.PATTERN__SELECT_ENTRY:
         setSelectEntry((LastSelectEntry)null);
+        return;
+      case Esper2MaudePackage.PATTERN__FROM_FILTER:
+        setFromFilter((FilterFrom)null);
+        return;
+      case Esper2MaudePackage.PATTERN__WIN:
+        setWin((Window)null);
         return;
     }
     super.eUnset(featureID);
@@ -337,12 +547,18 @@ public class PatternImpl extends MinimalEObjectImpl.Container implements Pattern
     {
       case Esper2MaudePackage.PATTERN__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case Esper2MaudePackage.PATTERN__NUM:
+        return num != NUM_EDEFAULT;
       case Esper2MaudePackage.PATTERN__EVENT:
-        return EVENT_EDEFAULT == null ? event != null : !EVENT_EDEFAULT.equals(event);
+        return event != null;
       case Esper2MaudePackage.PATTERN__SELECT_ENTRIES:
         return selectEntries != null && !selectEntries.isEmpty();
       case Esper2MaudePackage.PATTERN__SELECT_ENTRY:
         return selectEntry != null;
+      case Esper2MaudePackage.PATTERN__FROM_FILTER:
+        return fromFilter != null;
+      case Esper2MaudePackage.PATTERN__WIN:
+        return win != null;
     }
     return super.eIsSet(featureID);
   }
@@ -360,8 +576,8 @@ public class PatternImpl extends MinimalEObjectImpl.Container implements Pattern
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", event: ");
-    result.append(event);
+    result.append(", num: ");
+    result.append(num);
     result.append(')');
     return result.toString();
   }

@@ -81,9 +81,79 @@ public class Esper2MaudeAdapterFactory extends AdapterFactoryImpl
         return createModelAdapter();
       }
       @Override
+      public Adapter caseSchema(Schema object)
+      {
+        return createSchemaAdapter();
+      }
+      @Override
+      public Adapter caseEventProperty(EventProperty object)
+      {
+        return createEventPropertyAdapter();
+      }
+      @Override
       public Adapter casePattern(Pattern object)
       {
         return createPatternAdapter();
+      }
+      @Override
+      public Adapter caseWindow(Window object)
+      {
+        return createWindowAdapter();
+      }
+      @Override
+      public Adapter caseWhereFilter(WhereFilter object)
+      {
+        return createWhereFilterAdapter();
+      }
+      @Override
+      public Adapter caseFilterFrom(FilterFrom object)
+      {
+        return createFilterFromAdapter();
+      }
+      @Override
+      public Adapter caseFollowedBy(FollowedBy object)
+      {
+        return createFollowedByAdapter();
+      }
+      @Override
+      public Adapter caseSubFilterFollowedBy(SubFilterFollowedBy object)
+      {
+        return createSubFilterFollowedByAdapter();
+      }
+      @Override
+      public Adapter caseEvery(Every object)
+      {
+        return createEveryAdapter();
+      }
+      @Override
+      public Adapter caseFilterEvent(FilterEvent object)
+      {
+        return createFilterEventAdapter();
+      }
+      @Override
+      public Adapter caseFilterPart(FilterPart object)
+      {
+        return createFilterPartAdapter();
+      }
+      @Override
+      public Adapter caseFilterOperator(FilterOperator object)
+      {
+        return createFilterOperatorAdapter();
+      }
+      @Override
+      public Adapter caseComparisonOperator(ComparisonOperator object)
+      {
+        return createComparisonOperatorAdapter();
+      }
+      @Override
+      public Adapter caseLogicalOperator(LogicalOperator object)
+      {
+        return createLogicalOperatorAdapter();
+      }
+      @Override
+      public Adapter caseEvent(Event object)
+      {
+        return createEventAdapter();
       }
       @Override
       public Adapter caseNonLastSelectEntry(NonLastSelectEntry object)
@@ -143,6 +213,36 @@ public class Esper2MaudeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.Schema <em>Schema</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.Schema
+   * @generated
+   */
+  public Adapter createSchemaAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.EventProperty <em>Event Property</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.EventProperty
+   * @generated
+   */
+  public Adapter createEventPropertyAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.Pattern <em>Pattern</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -153,6 +253,186 @@ public class Esper2MaudeAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPatternAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.Window <em>Window</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.Window
+   * @generated
+   */
+  public Adapter createWindowAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.WhereFilter <em>Where Filter</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.WhereFilter
+   * @generated
+   */
+  public Adapter createWhereFilterAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.FilterFrom <em>Filter From</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterFrom
+   * @generated
+   */
+  public Adapter createFilterFromAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.FollowedBy <em>Followed By</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.FollowedBy
+   * @generated
+   */
+  public Adapter createFollowedByAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy <em>Sub Filter Followed By</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy
+   * @generated
+   */
+  public Adapter createSubFilterFollowedByAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.Every <em>Every</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.Every
+   * @generated
+   */
+  public Adapter createEveryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.FilterEvent <em>Filter Event</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterEvent
+   * @generated
+   */
+  public Adapter createFilterEventAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.FilterPart <em>Filter Part</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterPart
+   * @generated
+   */
+  public Adapter createFilterPartAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.FilterOperator <em>Filter Operator</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterOperator
+   * @generated
+   */
+  public Adapter createFilterOperatorAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.ComparisonOperator <em>Comparison Operator</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.ComparisonOperator
+   * @generated
+   */
+  public Adapter createComparisonOperatorAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.LogicalOperator <em>Logical Operator</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.LogicalOperator
+   * @generated
+   */
+  public Adapter createLogicalOperatorAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtext.example.mydsl.esper2Maude.Event <em>Event</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtext.example.mydsl.esper2Maude.Event
+   * @generated
+   */
+  public Adapter createEventAdapter()
   {
     return null;
   }

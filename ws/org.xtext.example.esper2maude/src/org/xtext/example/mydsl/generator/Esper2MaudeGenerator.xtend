@@ -3,20 +3,22 @@
  */
 package org.xtext.example.mydsl.generator
 
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
-import org.eclipse.xtext.naming.IQualifiedNameProvider
-
-/**
- * Generates code from your model files on save.
- * 
- * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
- */
- 
-import com.google.inject.Inject
+import org.xtext.example.mydsl.esper2Maude.EventProperty
+import org.xtext.example.mydsl.esper2Maude.FilterFrom
+import org.xtext.example.mydsl.esper2Maude.FollowedBy
+import org.xtext.example.mydsl.esper2Maude.LastSelectEntry
 import org.xtext.example.mydsl.esper2Maude.Model
+import org.xtext.example.mydsl.esper2Maude.NonLastSelectEntry
+import org.xtext.example.mydsl.esper2Maude.Pattern
+import org.xtext.example.mydsl.esper2Maude.Schema
+import org.xtext.example.mydsl.esper2Maude.SelectEntry
+import org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy
+import org.eclipse.emf.common.util.URI
 
 class Esper2MaudeGenerator extends AbstractGenerator {
 
@@ -27,15 +29,469 @@ class Esper2MaudeGenerator extends AbstractGenerator {
 //				.map[name]
 //				.join(', '))
 //	}
-
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		var model = resource.contents.head as Model
-		fsa.generateFile("code" + ".maude", model.compile)
-		
+		fsa.generateFile(fileName(resource.URI) + ".maude", model.compile)
+	}
+	
+	def fileName(URI uri) {
+		uri.toString.substring(uri.toString.lastIndexOf('/')+1, uri.toString.lastIndexOf('.'))
 	}
 
-    def compile(Model e) ''' 
-        «e.toString»
-    '''
+	def compile(Model e) ''' 
+	«intro()»
+    «generateCodeForPrimitiveEvents(e.schemas)»
+    «generateCodeForDerivedEvents(e.patterns, e)»
+    «generateRuleCodeForPatterns(e.patterns)»
+	«generateInitialModel(e)»
+	«closing()»
+	'''
+	
+	def generateInitialModel(Model m) '''
+	********* INITIAL MODEL
+	op InitialModel : -> System .
+	eq InitialModel
+	  = {
+	  < 'c : Clock | time : 0 >
+	  < 'e : Stream | events : nil >
+	  < 'f : CGStream | eventscg : nil >
+	  < 'x : Counter | n : 1000 >
+	*** we create the factories
+	  < 'p : EventPruningFactory | period : PRUNINGPERIOD, savedEvents : nil, wakeUpAt : PRUNINGPERIOD, npe : 0 >
+	«generateFactoriesForInitialModel(m)» 
+	} .
+	'''
+	
+	def generateFactoriesForInitialModel(Model m) {
+		var i = 0;
+		for (Pattern p : m.patterns) {
+			if ((p.win != null && p.win.typeTime!=null)) { // HistoryFactory
+				return "< 'f"+i+" : "+p.event.name+"Factory | *** USER DEFINED ***, startTime : 0, npe : 0, windowLength : "+p.win.num+", lastEvent : 0 >"
+			} else if (p.win != null && p.win.typeBatch!=null){ // TimedFactory
+				return "< 'f"+i+" : "+p.event.name+"Factory | *** USER DEFINED ***, wakeUpAt : "+p.win.num+", npe : 0 >"
+			} else if (p.fromFilter.followedBy!=null && p.fromFilter.followedBy.whereFilter.timer!=null){ // HistoryFactory
+				return "< 'f"+i+" : "+p.event.name+"Factory | *** USER DEFINED ***, startTime : 0, npe : 0, windowLength : "+p.fromFilter.followedBy.whereFilter.num+", lastEvent : 0 >"
+			} else if (p.fromFilter.left.followedBy!=null && p.fromFilter.left.followedBy.whereFilter.timer!=null) { // HistoryFactory
+				return "< 'f"+i+" : "+p.event.name+"Factory | *** USER DEFINED ***, startTime : 0, npe : 0, windowLength : "+p.fromFilter.left.followedBy.whereFilter.num+", lastEvent : 0 >"
+			} else if (p.fromFilter.right.followedBy!=null && p.fromFilter.right.followedBy.whereFilter.timer!=null) { // HistoryFactory
+				return "< 'f"+i+" : "+p.event.name+"Factory | *** USER DEFINED ***, startTime : 0, npe : 0, windowLength : "+p.fromFilter.right.followedBy.whereFilter.num+", lastEvent : 0 >"
+			}
+			i++;
+		}
+	}
+	
+	def generateCodeForDerivedEvents(EList<Pattern> patterns, Model m) {
+		var ss = "";
+		for (Pattern p : patterns){
+			ss += generateCodeForDerivedEvent(p, m);
+			ss += generateEquationsForDerivedEvent(p, m);
+			ss += generateFactoryForDerivedEvent(p)
+		}
+		return ss + "\n";
+	}
+	
+	def generateFactoryForDerivedEvent(Pattern pattern) '''
+		class «pattern.event.name»Factory | *** USER DEFINED *** .
+		subclass «pattern.event.name»Factory < «kindOfFactory(pattern)» .
+	'''
+	
+	def kindOfFactory(Pattern p) {
+		if (p.win != null && p.win.typeTime!=null) {
+			return "HistoryFactory"
+		} else if (p.win != null && p.win.typeBatch!=null) {
+			return "TimedFactory"
+		} else if ((p.fromFilter.followedBy!=null && p.fromFilter.followedBy.whereFilter.timer!=null) ||
+			(p.fromFilter.left.followedBy!=null && p.fromFilter.left.followedBy.whereFilter.timer!=null) ||
+			(p.fromFilter.right.followedBy!=null && p.fromFilter.right.followedBy.whereFilter.timer!=null)){
+			return "HistoryFactory"
+		}
+	}
+	
+	def generateEquationsForDerivedEvent(Pattern p, Model m) {
+		var ss = "";
+		for (NonLastSelectEntry e : p.selectEntries){
+			if (e.entry.field.star!=null || e.entry.groupOp!=null){
+				// TODO
+				ss += " **TODO**, "
+			} else {
+				ss += "op " + e.entry.alias + " : Object -> "+ derivedAttributeType(e.entry, p, m) + " .\n";
+				ss += "eq " + e.entry.alias + "(< O : " + p.event.name + " | " + e.entry.alias + " : N >) = N .\n";
+			}
+		}
+		ss += "op " + p.selectEntry.entry.alias + " : Object -> "+ derivedAttributeType(p.selectEntry.entry, p, m) + " .\n";
+		ss += "eq " + p.selectEntry.entry.alias + "(< O : " + p.event.name + " | " + p.selectEntry.entry.alias + " : N >) = N .\n";
+		
+		return ss+"\n";
+	}
+	
+	def derivedAttributeType(SelectEntry entry, Pattern p, Model model) {
+		var eventName = obtainEvent(entry.field.eventVariable, p.fromFilter);
+		return obtainTypeOfPropFromEvent(entry.field.eventPropName, eventName, model)
+	}
+	
+	def obtainTypeOfPropFromEvent(String propName, String eventName, Model model) {
+		var found = false;
+		var i = 0;
+		var type = "";
+		while (i<model.schemas.size && !found){
+			var schema = model.schemas.get(i);
+			if (schema.name.equals(eventName)){
+				type = findType(propName, schema);
+				found = true;
+			}
+			i++;
+		}
+		return type;
+	}
+	
+	def findType(String propName, Schema schema) {
+//		return "finding " + propName
+		if (schema.prop.name.equals(propName)){
+			return espertype2maudetype(schema.prop.type);
+		} else if (schema.props!=null){
+			var i = 0;
+			var found = false;
+			var type = "Not found"
+			while (i<schema.props.size && !found){
+				if (schema.props.get(i).name.equals(propName)){
+					type = schema.props.get(i).type;
+					found = true;
+				}
+				i++;
+			}
+			return espertype2maudetype(type);
+		}
+	}
+	
+	def espertype2maudetype(String esperType) {
+		if (esperType.equals('integer')){
+			return 'Int'
+		} else if (esperType.equals('double') || esperType.equals('long')){
+			return 'Rat'
+		} else if (esperType.equals('string')){
+			return 'Qid'
+		} else if (esperType.equals('boolean')){
+			return 'Bool'
+		}
+	}
+	
+	def String obtainEvent(String eventVariable, FilterFrom fromFilter) {
+		if (fromFilter.eventName!=null){
+			return fromFilter.eventName
+		} else if (fromFilter.followedBy!=null && !getEvent(eventVariable, fromFilter.followedBy).equals("")){
+			return getEvent(eventVariable, fromFilter.followedBy);
+		} else if (fromFilter.followedBy!=null && getEvent(eventVariable, fromFilter.followedBy).equals("")) {
+			return "Not found"
+		} else {
+			var eventLeft = obtainEvent(eventVariable, fromFilter.left);	
+			var eventRight = obtainEvent(eventVariable, fromFilter.right);
+			if (!eventLeft.equals("")){
+				return eventLeft;
+			} else if (!eventRight.equals("")){
+				return eventRight;
+			} else {
+				return "Not found 2"
+			}
+		}
+	}
+	
+	def getEvent(String eventVariable, FollowedBy followedBy) {
+		if (followedBy.left!=null && !getEventAux(eventVariable, followedBy.left).equals("")) {
+			return getEventAux(eventVariable, followedBy.left);
+		} else if (followedBy.right!=null && !getEventAux(eventVariable, followedBy.right).equals("")){
+			return getEventAux(eventVariable, followedBy.right);
+		} else {
+			return "";
+		}
+	}
+	
+	def String getEventAux(String eventVariable, SubFilterFollowedBy sub) {
+		if (sub.eventVariable!=null && sub.eventVariable.equals(eventVariable)){
+			return sub.eventName
+		} else if (sub.every!=null && sub.every.eventVariable.equals(eventVariable)) {
+			return sub.every.eventName
+		} else if (sub.every!=null && sub.every.filterFrom!=null) {
+			return obtainEvent(eventVariable, sub.every.filterFrom as FilterFrom);
+		} else {
+			return "";
+		}
+	}
+	
+	def generateCodeForDerivedEvent(Pattern p, Model m) '''
+		class «p.event.name» | «generateCodeForDerivedEventProps(p.selectEntries, p.selectEntry, p, m)» .
+		subclass «p.event.name» < Event .
+	'''
+	
+	def generateCodeForDerivedEventProps(EList<NonLastSelectEntry> entries, LastSelectEntry entry, Pattern p, Model m) {
+		var ss = "";
+		for (NonLastSelectEntry e : entries){
+			if (e.entry.field.star!=null || e.entry.groupOp!=null){
+				// TODO
+				ss += "TODO, "
+			} else {
+				ss += e.entry.alias + " : " + derivedAttributeType(e.entry, p, m) + ", "
+			}
+		}
+		ss += entry.entry.alias + " : " + derivedAttributeType(entry.entry, p, m)
+		return ss;
+	}
+
+	def String generateCodeForPrimitiveEvents(EList<Schema> schemas) {
+		var ss = "";
+		for (Schema s : schemas){
+			ss += generateCodeForPrimitiveEvent(s);
+			ss += generateEquationsPrimitiveEvent(s);
+			ss += generateFactoryForPrimitiveEvent(s);
+		}
+		return ss+"\n";
+	}
+	
+	def generateFactoryForPrimitiveEvent(Schema schema) '''
+		class «schema.name»Factory | id : Int .
+		subclass «schema.name»Factory < TimedFactory .
+	'''
+	
+	def generateEquationsPrimitiveEvent(Schema s) { 
+		var ss = "";
+		if (s.prop != null) {
+			ss += "op " + s.prop.name + " : Object -> "+ generatePropType(s.prop.type.toString)+ " .\n";
+			ss += "eq " + s.prop.name + "(< O : " + s.name + " | " + s.prop.name + " : N >) = N .\n";
+		}
+		if (s.props != null) {
+			for (EventProperty p : s.props) {
+				ss += "op " + p.name + " : Object -> " + generatePropType(p.type.toString) + " .\n";
+				ss += "eq " + p.name + "(< O : " + s.name + " | " + p.name + " : N >) = N .\n";
+			}
+			ss+="\n"
+		}
+		return ss;
+	}
+	
+	def generateCodeForPrimitiveEvent(Schema s) '''
+		class «s.name» | «generateCodeForPrimitiveEventProps(s)» .
+		subclass «s.name» < Event .
+	'''
+
+	def String generateCodeForPrimitiveEventProps(Schema s) {
+		var ss = "";
+		if (s.prop != null) {
+			ss = s.prop.name + ' : ' + generatePropType(s.prop.type.toString)
+		}
+		if (s.props != null) {
+			for (EventProperty p : s.props) {
+				ss += ", " + p.name + " : " + generatePropType(p.type.toString)
+			}
+		}
+		return ss;
+	}
+
+	def String generatePropType(String t) {
+		if (t.equals("long") || t.equals("double")) {
+			return 'Rat'
+		} else if (t.equals("integer")) {
+			return 'Int'
+		} else if (t.equals("string")) {
+			return 'Qid'
+		} else if (t.equals("boolean")) {
+			return "Bool"
+		}
+	}
+
+	def generateRuleCodeForPattern(Pattern p) '''
+		crl [«p.event.name»] :
+		< C : Clock | time : NOW >
+		< CO : Counter | n : N >
+		< S : Stream | events : L >
+		< F : «p.event.name»Factory | *** USER DEFINED *** >
+		=>
+		< C : Clock | time : NOW >
+		< CO : Counter | n : N + 1 >
+		< S : Stream | events : insert( < N + 1 : «p.event.name» |
+		«generateCodeForFactories(p)»
+	'''
+	
+	def generateCodeForFactories(Pattern p){
+		var i = 0;
+		var ss = "";
+		for (NonLastSelectEntry e : p.selectEntries){ 
+			if (e.entry.field.star!=null || e.entry.groupOp!=null){
+				// TODO
+			} else {
+				ss += "\t" + e.entry.alias + " : " + 'VAR_'+p.event.name+ '_'+i+ ',' +"\n";
+			}
+			i++;
+		}
+		ss += "\t"+p.selectEntry.entry.alias + " : VAR_" + p.event.name +"_" + i + " >, L ) >\n";
+		ss += "< F : " + p.event.name + "Factory | *** USER DEFINED ***  >\n";
+		ss += "if \n";
+		for (var j=0; j<i; j++){
+			ss += "\tVAR_"+p.event.name+ "_"+j + " := *** USER DEFINED *** /\\\n";
+		}
+		ss += "\tVAR_"+p.event.name+ "_"+ i + " := *** USER DEFINED ***\n";
+		ss += ".";
+		return ss;
+	}
+
+	def String generateRuleCodeForPatterns(EList<Pattern> patterns) {
+		var ss = "************************************
+************** RULES ***************
+************************************
+";
+		for (Pattern p : patterns){
+			ss += generateRuleCodeForPattern(p);
+		}
+		return ss;
+	}
+
+	def intro() '''
+		(view Object from TRIV to CONFIGURATION is
+		  sort Elt to Object .
+		 endv)
+		
+		(omod MY_MODULE is
+		
+		*** All times in seconds
+		
+		****** IMPORTS
+		pr CONFIGURATION .
+		pr (LIST * (op __ to _;_)) {Object} .
+		pr NAT-TIME-DOMAIN-WITH-INF .
+		pr INT .
+		pr QID .
+		pr RAT .
+		pr PROB-DISTR . 
+		
+		**** PARAMETERS
+		op NUMEVENTS : -> Int . *** number of events. 
+		*** If >0 it sets the upper limit. 
+		*** If <0 there is no limit. Just the time bound gven by TIMELIMIT.
+		*** eq NUMEVENTS = 1000 .
+		eq NUMEVENTS = -1 .
+		
+		op ONEDAY : -> Time . *** One day in miliseconds
+		eq ONEDAY = 86400 .
+		
+		op TIMELIMIT : -> Time . *** Time limit
+		*** eq TIMELIMIT = NUMEVENTS * 1000 .
+		*** eq TIMELIMIT = 1 * ONEDAY + 1 .
+		eq TIMELIMIT = 5 + ONEDAY + 1 . *** One day
+		
+		op PRUNINGPERIOD : -> Time . *** Lifetime of events before moving to backup
+		*** eq PRUNINGPERIOD = ONEDAY + 1 .
+		eq PRUNINGPERIOD = 10 . *** 10 seconds
+		
+		
+		**** BASIC SORTS
+		subsort Int < Oid . *** To permit easy creation of fresh object identifiers
+		subsort Qid < Oid .
+		
+		***** BASIC CLASSES
+		class Event | ts : Time . *** Events with timeStamps
+		
+		op ts : Object -> Time .
+		eq ts(< O : Event | ts : T >) = T .
+		
+		class Counter | n : Int . *** To create fresh object identifiers
+		
+		class Factory | npe : Int . *** Number of produced events
+		
+		class HistoryFactory | startTime : Time, 
+		                       windowLength : Time,  *** duration of the window 
+		                       lastEvent : Time *** To signal when the last event was detected
+		                       .
+		class SizeFactory |    startTime : Time, 
+		                       windowLength : Int,  *** number of events in the window
+		                       lastEvent : Time *** To signal when the last event was detected
+		                       .
+		class TimedFactory | wakeUpAt : Time .         *** To periocally generate events
+		
+		subclasses HistoryFactory SizeFactory TimedFactory < Factory .
+		
+		class Clock | time : Time . *** Global clock
+		
+		class Stream | events : List{Object} .  *** Stream of events
+		class CGStream | eventscg : List{Object} . *** Stream of Coarse Grained events
+		
+		op insert : Object List{Object} -> List{Object} . *** insert ordered by timeStamp.
+		eq insert (OB, nil) = OB .
+		eq insert (OB1, (L ; OB2) ) = if ts(OB1) > ts(OB2) then L ; OB2 ; OB1
+		                              else insert ( OB1, L ) ; OB2 fi .
+		
+		sort System .
+		op `{_`} : Configuration -> System .
+		
+		****** REAL TIME
+		vars Conf : Configuration .
+		
+		crl [tick] :
+		{ Conf < C : Clock | time : NOW > }
+		=>
+		{ delta (Conf, T) < C : Clock | time : NOW + T > }
+		if
+		T := mte(Conf, NOW) /\ T > 0 /\ (NOW < TIMELIMIT ) *** TIMELIMIT is end of times
+		.
+		
+		op mte : Configuration Time -> Time .
+		eq mte(< O : TimedFactory | wakeUpAt : T1 > Conf, T2) = min( T1 - T2 , mte(Conf, T2) ) .
+		eq mte(Conf, T) = INF [owise] .
+		
+		op delta : Configuration Time -> Configuration .
+		eq delta(Conf, T) = Conf [owise] .
+		
+		*******************************************************
+		**** APPLICATION SPECIFIC:
+		
+		****** VARIABLE DECLARATIONS
+		vars C CO S : Oid . *** clock, counter, stream, factory Oids.
+		vars O O1 O2 O3 O4 O5 O6 : Oid . *** general Oids.
+		vars OB OB1 OB2 : Object .
+		vars NOW T T1 T2 TLE : Time . *** times
+		vars D : Time . *** durations
+		vars L BL : List{Object} .
+		vars N M Q I J N1 N2 : Int .
+		
+		class EventPruningFactory | period : Time, savedEvents : List{Object} .
+		subclass EventPruningFactory < TimedFactory .
+		
+		****** RULES
+		*** RULE FOR PRUNING EVENTS
+		*** We use a backup stream in the factory
+		
+		rl [PruneEvents] : *** pruning of old events 
+		< C : Clock | time : NOW >
+		< S : Stream | events : L >
+		< F : EventPruningFactory | period : T, savedEvents : BL, wakeUpAt : NOW, npe : J >
+		=>
+		< C : Clock | time : NOW >
+		< S : Stream | events : removeOldEvents(L, NOW - T ) >
+		< F : EventPruningFactory | period : T,  savedEvents : BL, wakeUpAt : NOW + T, npe : J > 
+		*** < F : EventPruningFactory | period : T,  savedEvents : (addOldEvents(L, NOW - T) ; BL), wakeUpAt : NOW + T > 
+		.
+		
+		*** this operation gets rid of those events whose timestamp is less than T
+		op removeOldEvents : List{Object} Time -> List{Object} .
+		eq removeOldEvents ( nil, T ) = nil .
+		eq removeOldEvents ( (< O : Event | ts : T1 > ; L), T ) =
+		    if (T1 >= T) then (< O : Event | ts : T1 > ; L) *** we make use of the fact that the list is sorted 
+		    else removeOldEvents (L, T) 
+		    fi .
+		eq removeOldEvents ( (OB ; L), T ) =  removeOldEvents (L, T) [owise] .
+		
+		op addOldEvents : List{Object} Time -> List{Object} .
+		eq addOldEvents ( nil, T ) = nil .
+		eq addOldEvents ( (< O : Event | ts : T1 > ; L), T ) =
+		    if (T1 < T) then (< O : Event | ts : T1 > ; addOldEvents(L, T)) *** we make use of the fact that the list is sorted 
+		    else nil  
+		    fi .
+		eq addOldEvents ( (OB ; L), T ) =  addOldEvents (L, T) [owise] .
+		
+		***** EVENT CLASSES
+		
+	'''
+	
+	def closing() '''
+		endom)
+		eof
+	'''
 
 }

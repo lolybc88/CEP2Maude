@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage;
 import org.xtext.example.mydsl.esper2Maude.Model;
 import org.xtext.example.mydsl.esper2Maude.Pattern;
+import org.xtext.example.mydsl.esper2Maude.Schema;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,6 +30,7 @@ import org.xtext.example.mydsl.esper2Maude.Pattern;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.ModelImpl#getSchemas <em>Schemas</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.ModelImpl#getPatterns <em>Patterns</em>}</li>
  * </ul>
  *
@@ -36,6 +38,16 @@ import org.xtext.example.mydsl.esper2Maude.Pattern;
  */
 public class ModelImpl extends MinimalEObjectImpl.Container implements Model
 {
+  /**
+   * The cached value of the '{@link #getSchemas() <em>Schemas</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSchemas()
+   * @generated
+   * @ordered
+   */
+  protected EList<Schema> schemas;
+
   /**
    * The cached value of the '{@link #getPatterns() <em>Patterns</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -72,6 +84,20 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Schema> getSchemas()
+  {
+    if (schemas == null)
+    {
+      schemas = new EObjectContainmentEList<Schema>(Schema.class, this, Esper2MaudePackage.MODEL__SCHEMAS);
+    }
+    return schemas;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<Pattern> getPatterns()
   {
     if (patterns == null)
@@ -91,6 +117,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case Esper2MaudePackage.MODEL__SCHEMAS:
+        return ((InternalEList<?>)getSchemas()).basicRemove(otherEnd, msgs);
       case Esper2MaudePackage.MODEL__PATTERNS:
         return ((InternalEList<?>)getPatterns()).basicRemove(otherEnd, msgs);
     }
@@ -107,6 +135,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case Esper2MaudePackage.MODEL__SCHEMAS:
+        return getSchemas();
       case Esper2MaudePackage.MODEL__PATTERNS:
         return getPatterns();
     }
@@ -124,6 +154,10 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case Esper2MaudePackage.MODEL__SCHEMAS:
+        getSchemas().clear();
+        getSchemas().addAll((Collection<? extends Schema>)newValue);
+        return;
       case Esper2MaudePackage.MODEL__PATTERNS:
         getPatterns().clear();
         getPatterns().addAll((Collection<? extends Pattern>)newValue);
@@ -142,6 +176,9 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case Esper2MaudePackage.MODEL__SCHEMAS:
+        getSchemas().clear();
+        return;
       case Esper2MaudePackage.MODEL__PATTERNS:
         getPatterns().clear();
         return;
@@ -159,6 +196,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
+      case Esper2MaudePackage.MODEL__SCHEMAS:
+        return schemas != null && !schemas.isEmpty();
       case Esper2MaudePackage.MODEL__PATTERNS:
         return patterns != null && !patterns.isEmpty();
     }

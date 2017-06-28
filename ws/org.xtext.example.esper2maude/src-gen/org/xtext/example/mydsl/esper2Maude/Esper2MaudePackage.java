@@ -68,13 +68,22 @@ public interface Esper2MaudePackage extends EPackage
   int MODEL = 0;
 
   /**
+   * The feature id for the '<em><b>Schemas</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL__SCHEMAS = 0;
+
+  /**
    * The feature id for the '<em><b>Patterns</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODEL__PATTERNS = 0;
+  int MODEL__PATTERNS = 1;
 
   /**
    * The number of structural features of the '<em>Model</em>' class.
@@ -83,7 +92,90 @@ public interface Esper2MaudePackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODEL_FEATURE_COUNT = 1;
+  int MODEL_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.SchemaImpl <em>Schema</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.SchemaImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getSchema()
+   * @generated
+   */
+  int SCHEMA = 1;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCHEMA__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Prop</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCHEMA__PROP = 1;
+
+  /**
+   * The feature id for the '<em><b>Props</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCHEMA__PROPS = 2;
+
+  /**
+   * The number of structural features of the '<em>Schema</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCHEMA_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.EventPropertyImpl <em>Event Property</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.EventPropertyImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getEventProperty()
+   * @generated
+   */
+  int EVENT_PROPERTY = 2;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVENT_PROPERTY__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVENT_PROPERTY__TYPE = 1;
+
+  /**
+   * The number of structural features of the '<em>Event Property</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVENT_PROPERTY_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.PatternImpl <em>Pattern</em>}' class.
@@ -93,7 +185,7 @@ public interface Esper2MaudePackage extends EPackage
    * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getPattern()
    * @generated
    */
-  int PATTERN = 1;
+  int PATTERN = 3;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -105,13 +197,22 @@ public interface Esper2MaudePackage extends EPackage
   int PATTERN__NAME = 0;
 
   /**
-   * The feature id for the '<em><b>Event</b></em>' attribute.
+   * The feature id for the '<em><b>Num</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PATTERN__EVENT = 1;
+  int PATTERN__NUM = 1;
+
+  /**
+   * The feature id for the '<em><b>Event</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PATTERN__EVENT = 2;
 
   /**
    * The feature id for the '<em><b>Select Entries</b></em>' containment reference list.
@@ -120,7 +221,7 @@ public interface Esper2MaudePackage extends EPackage
    * @generated
    * @ordered
    */
-  int PATTERN__SELECT_ENTRIES = 2;
+  int PATTERN__SELECT_ENTRIES = 3;
 
   /**
    * The feature id for the '<em><b>Select Entry</b></em>' containment reference.
@@ -129,7 +230,25 @@ public interface Esper2MaudePackage extends EPackage
    * @generated
    * @ordered
    */
-  int PATTERN__SELECT_ENTRY = 3;
+  int PATTERN__SELECT_ENTRY = 4;
+
+  /**
+   * The feature id for the '<em><b>From Filter</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PATTERN__FROM_FILTER = 5;
+
+  /**
+   * The feature id for the '<em><b>Win</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PATTERN__WIN = 6;
 
   /**
    * The number of structural features of the '<em>Pattern</em>' class.
@@ -138,7 +257,676 @@ public interface Esper2MaudePackage extends EPackage
    * @generated
    * @ordered
    */
-  int PATTERN_FEATURE_COUNT = 4;
+  int PATTERN_FEATURE_COUNT = 7;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.WindowImpl <em>Window</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.WindowImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getWindow()
+   * @generated
+   */
+  int WINDOW = 4;
+
+  /**
+   * The feature id for the '<em><b>Type Time</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WINDOW__TYPE_TIME = 0;
+
+  /**
+   * The feature id for the '<em><b>Num</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WINDOW__NUM = 1;
+
+  /**
+   * The feature id for the '<em><b>Type Batch</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WINDOW__TYPE_BATCH = 2;
+
+  /**
+   * The number of structural features of the '<em>Window</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WINDOW_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.WhereFilterImpl <em>Where Filter</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.WhereFilterImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getWhereFilter()
+   * @generated
+   */
+  int WHERE_FILTER = 5;
+
+  /**
+   * The feature id for the '<em><b>Filter Event L</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHERE_FILTER__FILTER_EVENT_L = 0;
+
+  /**
+   * The feature id for the '<em><b>Filter Op L</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHERE_FILTER__FILTER_OP_L = 1;
+
+  /**
+   * The feature id for the '<em><b>Timer</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHERE_FILTER__TIMER = 2;
+
+  /**
+   * The feature id for the '<em><b>Num</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHERE_FILTER__NUM = 3;
+
+  /**
+   * The feature id for the '<em><b>Filter Op R</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHERE_FILTER__FILTER_OP_R = 4;
+
+  /**
+   * The feature id for the '<em><b>Filter Event R</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHERE_FILTER__FILTER_EVENT_R = 5;
+
+  /**
+   * The number of structural features of the '<em>Where Filter</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int WHERE_FILTER_FEATURE_COUNT = 6;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.FilterFromImpl <em>Filter From</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.FilterFromImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getFilterFrom()
+   * @generated
+   */
+  int FILTER_FROM = 6;
+
+  /**
+   * The feature id for the '<em><b>Followed By</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_FROM__FOLLOWED_BY = 0;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_FROM__LEFT = 1;
+
+  /**
+   * The feature id for the '<em><b>Op</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_FROM__OP = 2;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_FROM__RIGHT = 3;
+
+  /**
+   * The feature id for the '<em><b>Event Variable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_FROM__EVENT_VARIABLE = 4;
+
+  /**
+   * The feature id for the '<em><b>Event Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_FROM__EVENT_NAME = 5;
+
+  /**
+   * The feature id for the '<em><b>Filter</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_FROM__FILTER = 6;
+
+  /**
+   * The number of structural features of the '<em>Filter From</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_FROM_FEATURE_COUNT = 7;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.FollowedByImpl <em>Followed By</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.FollowedByImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getFollowedBy()
+   * @generated
+   */
+  int FOLLOWED_BY = 7;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FOLLOWED_BY__LEFT = 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FOLLOWED_BY__RIGHT = 1;
+
+  /**
+   * The feature id for the '<em><b>Where Filter</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FOLLOWED_BY__WHERE_FILTER = 2;
+
+  /**
+   * The number of structural features of the '<em>Followed By</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FOLLOWED_BY_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.SubFilterFollowedByImpl <em>Sub Filter Followed By</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.SubFilterFollowedByImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getSubFilterFollowedBy()
+   * @generated
+   */
+  int SUB_FILTER_FOLLOWED_BY = 8;
+
+  /**
+   * The feature id for the '<em><b>Event Variable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUB_FILTER_FOLLOWED_BY__EVENT_VARIABLE = 0;
+
+  /**
+   * The feature id for the '<em><b>Event Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUB_FILTER_FOLLOWED_BY__EVENT_NAME = 1;
+
+  /**
+   * The feature id for the '<em><b>Filter</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUB_FILTER_FOLLOWED_BY__FILTER = 2;
+
+  /**
+   * The feature id for the '<em><b>Every</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUB_FILTER_FOLLOWED_BY__EVERY = 3;
+
+  /**
+   * The number of structural features of the '<em>Sub Filter Followed By</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUB_FILTER_FOLLOWED_BY_FEATURE_COUNT = 4;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.EveryImpl <em>Every</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.EveryImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getEvery()
+   * @generated
+   */
+  int EVERY = 9;
+
+  /**
+   * The feature id for the '<em><b>Event Variable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVERY__EVENT_VARIABLE = 0;
+
+  /**
+   * The feature id for the '<em><b>Event Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVERY__EVENT_NAME = 1;
+
+  /**
+   * The feature id for the '<em><b>Filter</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVERY__FILTER = 2;
+
+  /**
+   * The feature id for the '<em><b>Filter From</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVERY__FILTER_FROM = 3;
+
+  /**
+   * The number of structural features of the '<em>Every</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVERY_FEATURE_COUNT = 4;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.FilterEventImpl <em>Filter Event</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.FilterEventImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getFilterEvent()
+   * @generated
+   */
+  int FILTER_EVENT = 10;
+
+  /**
+   * The feature id for the '<em><b>Filter Left Hand Side</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_EVENT__FILTER_LEFT_HAND_SIDE = 0;
+
+  /**
+   * The feature id for the '<em><b>Filter Op</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_EVENT__FILTER_OP = 1;
+
+  /**
+   * The feature id for the '<em><b>Filter Right Hand Side</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_EVENT__FILTER_RIGHT_HAND_SIDE = 2;
+
+  /**
+   * The number of structural features of the '<em>Filter Event</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_EVENT_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.FilterPartImpl <em>Filter Part</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.FilterPartImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getFilterPart()
+   * @generated
+   */
+  int FILTER_PART = 11;
+
+  /**
+   * The feature id for the '<em><b>Event Prop Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_PART__EVENT_PROP_NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Event Variable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_PART__EVENT_VARIABLE = 1;
+
+  /**
+   * The feature id for the '<em><b>Neg</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_PART__NEG = 2;
+
+  /**
+   * The feature id for the '<em><b>Num</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_PART__NUM = 3;
+
+  /**
+   * The feature id for the '<em><b>Dec</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_PART__DEC = 4;
+
+  /**
+   * The feature id for the '<em><b>Str</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_PART__STR = 5;
+
+  /**
+   * The feature id for the '<em><b>T</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_PART__T = 6;
+
+  /**
+   * The feature id for the '<em><b>F</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_PART__F = 7;
+
+  /**
+   * The number of structural features of the '<em>Filter Part</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_PART_FEATURE_COUNT = 8;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.FilterOperatorImpl <em>Filter Operator</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.FilterOperatorImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getFilterOperator()
+   * @generated
+   */
+  int FILTER_OPERATOR = 12;
+
+  /**
+   * The feature id for the '<em><b>Comparison</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_OPERATOR__COMPARISON = 0;
+
+  /**
+   * The feature id for the '<em><b>Logical</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_OPERATOR__LOGICAL = 1;
+
+  /**
+   * The number of structural features of the '<em>Filter Operator</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FILTER_OPERATOR_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.ComparisonOperatorImpl <em>Comparison Operator</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.ComparisonOperatorImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getComparisonOperator()
+   * @generated
+   */
+  int COMPARISON_OPERATOR = 13;
+
+  /**
+   * The feature id for the '<em><b>Gt</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPARISON_OPERATOR__GT = 0;
+
+  /**
+   * The feature id for the '<em><b>Ge</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPARISON_OPERATOR__GE = 1;
+
+  /**
+   * The feature id for the '<em><b>Eq</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPARISON_OPERATOR__EQ = 2;
+
+  /**
+   * The feature id for the '<em><b>Neq</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPARISON_OPERATOR__NEQ = 3;
+
+  /**
+   * The feature id for the '<em><b>Lt</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPARISON_OPERATOR__LT = 4;
+
+  /**
+   * The feature id for the '<em><b>Le</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPARISON_OPERATOR__LE = 5;
+
+  /**
+   * The number of structural features of the '<em>Comparison Operator</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPARISON_OPERATOR_FEATURE_COUNT = 6;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.LogicalOperatorImpl <em>Logical Operator</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.LogicalOperatorImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getLogicalOperator()
+   * @generated
+   */
+  int LOGICAL_OPERATOR = 14;
+
+  /**
+   * The feature id for the '<em><b>And</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LOGICAL_OPERATOR__AND = 0;
+
+  /**
+   * The feature id for the '<em><b>Or</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LOGICAL_OPERATOR__OR = 1;
+
+  /**
+   * The number of structural features of the '<em>Logical Operator</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LOGICAL_OPERATOR_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.EventImpl <em>Event</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtext.example.mydsl.esper2Maude.impl.EventImpl
+   * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getEvent()
+   * @generated
+   */
+  int EVENT = 15;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVENT__NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>Event</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVENT_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link org.xtext.example.mydsl.esper2Maude.impl.NonLastSelectEntryImpl <em>Non Last Select Entry</em>}' class.
@@ -148,7 +936,7 @@ public interface Esper2MaudePackage extends EPackage
    * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getNonLastSelectEntry()
    * @generated
    */
-  int NON_LAST_SELECT_ENTRY = 2;
+  int NON_LAST_SELECT_ENTRY = 16;
 
   /**
    * The feature id for the '<em><b>Entry</b></em>' containment reference.
@@ -176,7 +964,7 @@ public interface Esper2MaudePackage extends EPackage
    * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getLastSelectEntry()
    * @generated
    */
-  int LAST_SELECT_ENTRY = 3;
+  int LAST_SELECT_ENTRY = 17;
 
   /**
    * The feature id for the '<em><b>Entry</b></em>' containment reference.
@@ -204,7 +992,7 @@ public interface Esper2MaudePackage extends EPackage
    * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getSelectEntry()
    * @generated
    */
-  int SELECT_ENTRY = 4;
+  int SELECT_ENTRY = 18;
 
   /**
    * The feature id for the '<em><b>Field</b></em>' containment reference.
@@ -250,16 +1038,34 @@ public interface Esper2MaudePackage extends EPackage
    * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getField()
    * @generated
    */
-  int FIELD = 5;
+  int FIELD = 19;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Star</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FIELD__NAME = 0;
+  int FIELD__STAR = 0;
+
+  /**
+   * The feature id for the '<em><b>Event Variable</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIELD__EVENT_VARIABLE = 1;
+
+  /**
+   * The feature id for the '<em><b>Event Prop Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FIELD__EVENT_PROP_NAME = 2;
 
   /**
    * The number of structural features of the '<em>Field</em>' class.
@@ -268,7 +1074,7 @@ public interface Esper2MaudePackage extends EPackage
    * @generated
    * @ordered
    */
-  int FIELD_FEATURE_COUNT = 1;
+  int FIELD_FEATURE_COUNT = 3;
 
 
   /**
@@ -282,6 +1088,17 @@ public interface Esper2MaudePackage extends EPackage
   EClass getModel();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.esper2Maude.Model#getSchemas <em>Schemas</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Schemas</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Model#getSchemas()
+   * @see #getModel()
+   * @generated
+   */
+  EReference getModel_Schemas();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.esper2Maude.Model#getPatterns <em>Patterns</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -291,6 +1108,81 @@ public interface Esper2MaudePackage extends EPackage
    * @generated
    */
   EReference getModel_Patterns();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.Schema <em>Schema</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Schema</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Schema
+   * @generated
+   */
+  EClass getSchema();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Schema#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Schema#getName()
+   * @see #getSchema()
+   * @generated
+   */
+  EAttribute getSchema_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.Schema#getProp <em>Prop</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Prop</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Schema#getProp()
+   * @see #getSchema()
+   * @generated
+   */
+  EReference getSchema_Prop();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.esper2Maude.Schema#getProps <em>Props</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Props</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Schema#getProps()
+   * @see #getSchema()
+   * @generated
+   */
+  EReference getSchema_Props();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.EventProperty <em>Event Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Event Property</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.EventProperty
+   * @generated
+   */
+  EClass getEventProperty();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.EventProperty#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.EventProperty#getName()
+   * @see #getEventProperty()
+   * @generated
+   */
+  EAttribute getEventProperty_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.EventProperty#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.EventProperty#getType()
+   * @see #getEventProperty()
+   * @generated
+   */
+  EAttribute getEventProperty_Type();
 
   /**
    * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.Pattern <em>Pattern</em>}'.
@@ -314,15 +1206,26 @@ public interface Esper2MaudePackage extends EPackage
   EAttribute getPattern_Name();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Pattern#getEvent <em>Event</em>}'.
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Pattern#getNum <em>Num</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Event</em>'.
+   * @return the meta object for the attribute '<em>Num</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Pattern#getNum()
+   * @see #getPattern()
+   * @generated
+   */
+  EAttribute getPattern_Num();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.Pattern#getEvent <em>Event</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Event</em>'.
    * @see org.xtext.example.mydsl.esper2Maude.Pattern#getEvent()
    * @see #getPattern()
    * @generated
    */
-  EAttribute getPattern_Event();
+  EReference getPattern_Event();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.xtext.example.mydsl.esper2Maude.Pattern#getSelectEntries <em>Select Entries</em>}'.
@@ -345,6 +1248,687 @@ public interface Esper2MaudePackage extends EPackage
    * @generated
    */
   EReference getPattern_SelectEntry();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.Pattern#getFromFilter <em>From Filter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>From Filter</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Pattern#getFromFilter()
+   * @see #getPattern()
+   * @generated
+   */
+  EReference getPattern_FromFilter();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.Pattern#getWin <em>Win</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Win</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Pattern#getWin()
+   * @see #getPattern()
+   * @generated
+   */
+  EReference getPattern_Win();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.Window <em>Window</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Window</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Window
+   * @generated
+   */
+  EClass getWindow();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Window#getTypeTime <em>Type Time</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Type Time</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Window#getTypeTime()
+   * @see #getWindow()
+   * @generated
+   */
+  EAttribute getWindow_TypeTime();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Window#getNum <em>Num</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Num</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Window#getNum()
+   * @see #getWindow()
+   * @generated
+   */
+  EAttribute getWindow_Num();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Window#getTypeBatch <em>Type Batch</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Type Batch</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Window#getTypeBatch()
+   * @see #getWindow()
+   * @generated
+   */
+  EAttribute getWindow_TypeBatch();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.WhereFilter <em>Where Filter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Where Filter</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.WhereFilter
+   * @generated
+   */
+  EClass getWhereFilter();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.WhereFilter#getFilterEventL <em>Filter Event L</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Filter Event L</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.WhereFilter#getFilterEventL()
+   * @see #getWhereFilter()
+   * @generated
+   */
+  EReference getWhereFilter_FilterEventL();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.WhereFilter#getFilterOpL <em>Filter Op L</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Filter Op L</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.WhereFilter#getFilterOpL()
+   * @see #getWhereFilter()
+   * @generated
+   */
+  EReference getWhereFilter_FilterOpL();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.WhereFilter#getTimer <em>Timer</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Timer</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.WhereFilter#getTimer()
+   * @see #getWhereFilter()
+   * @generated
+   */
+  EAttribute getWhereFilter_Timer();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.WhereFilter#getNum <em>Num</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Num</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.WhereFilter#getNum()
+   * @see #getWhereFilter()
+   * @generated
+   */
+  EAttribute getWhereFilter_Num();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.WhereFilter#getFilterOpR <em>Filter Op R</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Filter Op R</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.WhereFilter#getFilterOpR()
+   * @see #getWhereFilter()
+   * @generated
+   */
+  EReference getWhereFilter_FilterOpR();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.WhereFilter#getFilterEventR <em>Filter Event R</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Filter Event R</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.WhereFilter#getFilterEventR()
+   * @see #getWhereFilter()
+   * @generated
+   */
+  EReference getWhereFilter_FilterEventR();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.FilterFrom <em>Filter From</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Filter From</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterFrom
+   * @generated
+   */
+  EClass getFilterFrom();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FilterFrom#getFollowedBy <em>Followed By</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Followed By</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterFrom#getFollowedBy()
+   * @see #getFilterFrom()
+   * @generated
+   */
+  EReference getFilterFrom_FollowedBy();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FilterFrom#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterFrom#getLeft()
+   * @see #getFilterFrom()
+   * @generated
+   */
+  EReference getFilterFrom_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FilterFrom#getOp <em>Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Op</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterFrom#getOp()
+   * @see #getFilterFrom()
+   * @generated
+   */
+  EReference getFilterFrom_Op();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FilterFrom#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterFrom#getRight()
+   * @see #getFilterFrom()
+   * @generated
+   */
+  EReference getFilterFrom_Right();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.FilterFrom#getEventVariable <em>Event Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Event Variable</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterFrom#getEventVariable()
+   * @see #getFilterFrom()
+   * @generated
+   */
+  EAttribute getFilterFrom_EventVariable();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.FilterFrom#getEventName <em>Event Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Event Name</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterFrom#getEventName()
+   * @see #getFilterFrom()
+   * @generated
+   */
+  EAttribute getFilterFrom_EventName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FilterFrom#getFilter <em>Filter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Filter</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterFrom#getFilter()
+   * @see #getFilterFrom()
+   * @generated
+   */
+  EReference getFilterFrom_Filter();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.FollowedBy <em>Followed By</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Followed By</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FollowedBy
+   * @generated
+   */
+  EClass getFollowedBy();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FollowedBy#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FollowedBy#getLeft()
+   * @see #getFollowedBy()
+   * @generated
+   */
+  EReference getFollowedBy_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FollowedBy#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FollowedBy#getRight()
+   * @see #getFollowedBy()
+   * @generated
+   */
+  EReference getFollowedBy_Right();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FollowedBy#getWhereFilter <em>Where Filter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Where Filter</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FollowedBy#getWhereFilter()
+   * @see #getFollowedBy()
+   * @generated
+   */
+  EReference getFollowedBy_WhereFilter();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy <em>Sub Filter Followed By</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Sub Filter Followed By</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy
+   * @generated
+   */
+  EClass getSubFilterFollowedBy();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy#getEventVariable <em>Event Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Event Variable</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy#getEventVariable()
+   * @see #getSubFilterFollowedBy()
+   * @generated
+   */
+  EAttribute getSubFilterFollowedBy_EventVariable();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy#getEventName <em>Event Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Event Name</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy#getEventName()
+   * @see #getSubFilterFollowedBy()
+   * @generated
+   */
+  EAttribute getSubFilterFollowedBy_EventName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy#getFilter <em>Filter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Filter</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy#getFilter()
+   * @see #getSubFilterFollowedBy()
+   * @generated
+   */
+  EReference getSubFilterFollowedBy_Filter();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy#getEvery <em>Every</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Every</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.SubFilterFollowedBy#getEvery()
+   * @see #getSubFilterFollowedBy()
+   * @generated
+   */
+  EReference getSubFilterFollowedBy_Every();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.Every <em>Every</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Every</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Every
+   * @generated
+   */
+  EClass getEvery();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Every#getEventVariable <em>Event Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Event Variable</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Every#getEventVariable()
+   * @see #getEvery()
+   * @generated
+   */
+  EAttribute getEvery_EventVariable();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Every#getEventName <em>Event Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Event Name</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Every#getEventName()
+   * @see #getEvery()
+   * @generated
+   */
+  EAttribute getEvery_EventName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.Every#getFilter <em>Filter</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Filter</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Every#getFilter()
+   * @see #getEvery()
+   * @generated
+   */
+  EReference getEvery_Filter();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.Every#getFilterFrom <em>Filter From</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Filter From</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Every#getFilterFrom()
+   * @see #getEvery()
+   * @generated
+   */
+  EReference getEvery_FilterFrom();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.FilterEvent <em>Filter Event</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Filter Event</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterEvent
+   * @generated
+   */
+  EClass getFilterEvent();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FilterEvent#getFilterLeftHandSide <em>Filter Left Hand Side</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Filter Left Hand Side</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterEvent#getFilterLeftHandSide()
+   * @see #getFilterEvent()
+   * @generated
+   */
+  EReference getFilterEvent_FilterLeftHandSide();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FilterEvent#getFilterOp <em>Filter Op</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Filter Op</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterEvent#getFilterOp()
+   * @see #getFilterEvent()
+   * @generated
+   */
+  EReference getFilterEvent_FilterOp();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FilterEvent#getFilterRightHandSide <em>Filter Right Hand Side</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Filter Right Hand Side</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterEvent#getFilterRightHandSide()
+   * @see #getFilterEvent()
+   * @generated
+   */
+  EReference getFilterEvent_FilterRightHandSide();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.FilterPart <em>Filter Part</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Filter Part</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterPart
+   * @generated
+   */
+  EClass getFilterPart();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.FilterPart#getEventPropName <em>Event Prop Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Event Prop Name</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterPart#getEventPropName()
+   * @see #getFilterPart()
+   * @generated
+   */
+  EAttribute getFilterPart_EventPropName();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.FilterPart#getEventVariable <em>Event Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Event Variable</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterPart#getEventVariable()
+   * @see #getFilterPart()
+   * @generated
+   */
+  EAttribute getFilterPart_EventVariable();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.FilterPart#getNeg <em>Neg</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Neg</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterPart#getNeg()
+   * @see #getFilterPart()
+   * @generated
+   */
+  EAttribute getFilterPart_Neg();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.FilterPart#getNum <em>Num</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Num</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterPart#getNum()
+   * @see #getFilterPart()
+   * @generated
+   */
+  EAttribute getFilterPart_Num();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.FilterPart#getDec <em>Dec</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Dec</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterPart#getDec()
+   * @see #getFilterPart()
+   * @generated
+   */
+  EAttribute getFilterPart_Dec();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.FilterPart#getStr <em>Str</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Str</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterPart#getStr()
+   * @see #getFilterPart()
+   * @generated
+   */
+  EAttribute getFilterPart_Str();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.FilterPart#getT <em>T</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>T</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterPart#getT()
+   * @see #getFilterPart()
+   * @generated
+   */
+  EAttribute getFilterPart_T();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.FilterPart#getF <em>F</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>F</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterPart#getF()
+   * @see #getFilterPart()
+   * @generated
+   */
+  EAttribute getFilterPart_F();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.FilterOperator <em>Filter Operator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Filter Operator</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterOperator
+   * @generated
+   */
+  EClass getFilterOperator();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FilterOperator#getComparison <em>Comparison</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Comparison</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterOperator#getComparison()
+   * @see #getFilterOperator()
+   * @generated
+   */
+  EReference getFilterOperator_Comparison();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtext.example.mydsl.esper2Maude.FilterOperator#getLogical <em>Logical</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Logical</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.FilterOperator#getLogical()
+   * @see #getFilterOperator()
+   * @generated
+   */
+  EReference getFilterOperator_Logical();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.ComparisonOperator <em>Comparison Operator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Comparison Operator</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.ComparisonOperator
+   * @generated
+   */
+  EClass getComparisonOperator();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.ComparisonOperator#getGt <em>Gt</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Gt</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.ComparisonOperator#getGt()
+   * @see #getComparisonOperator()
+   * @generated
+   */
+  EAttribute getComparisonOperator_Gt();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.ComparisonOperator#getGe <em>Ge</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Ge</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.ComparisonOperator#getGe()
+   * @see #getComparisonOperator()
+   * @generated
+   */
+  EAttribute getComparisonOperator_Ge();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.ComparisonOperator#getEq <em>Eq</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Eq</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.ComparisonOperator#getEq()
+   * @see #getComparisonOperator()
+   * @generated
+   */
+  EAttribute getComparisonOperator_Eq();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.ComparisonOperator#getNeq <em>Neq</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Neq</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.ComparisonOperator#getNeq()
+   * @see #getComparisonOperator()
+   * @generated
+   */
+  EAttribute getComparisonOperator_Neq();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.ComparisonOperator#getLt <em>Lt</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Lt</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.ComparisonOperator#getLt()
+   * @see #getComparisonOperator()
+   * @generated
+   */
+  EAttribute getComparisonOperator_Lt();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.ComparisonOperator#getLe <em>Le</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Le</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.ComparisonOperator#getLe()
+   * @see #getComparisonOperator()
+   * @generated
+   */
+  EAttribute getComparisonOperator_Le();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.LogicalOperator <em>Logical Operator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Logical Operator</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.LogicalOperator
+   * @generated
+   */
+  EClass getLogicalOperator();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.LogicalOperator#getAnd <em>And</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>And</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.LogicalOperator#getAnd()
+   * @see #getLogicalOperator()
+   * @generated
+   */
+  EAttribute getLogicalOperator_And();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.LogicalOperator#getOr <em>Or</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Or</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.LogicalOperator#getOr()
+   * @see #getLogicalOperator()
+   * @generated
+   */
+  EAttribute getLogicalOperator_Or();
+
+  /**
+   * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.Event <em>Event</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Event</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Event
+   * @generated
+   */
+  EClass getEvent();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Event#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Event#getName()
+   * @see #getEvent()
+   * @generated
+   */
+  EAttribute getEvent_Name();
 
   /**
    * Returns the meta object for class '{@link org.xtext.example.mydsl.esper2Maude.NonLastSelectEntry <em>Non Last Select Entry</em>}'.
@@ -442,15 +2026,37 @@ public interface Esper2MaudePackage extends EPackage
   EClass getField();
 
   /**
-   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Field#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Field#getStar <em>Star</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.xtext.example.mydsl.esper2Maude.Field#getName()
+   * @return the meta object for the attribute '<em>Star</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Field#getStar()
    * @see #getField()
    * @generated
    */
-  EAttribute getField_Name();
+  EAttribute getField_Star();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Field#getEventVariable <em>Event Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Event Variable</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Field#getEventVariable()
+   * @see #getField()
+   * @generated
+   */
+  EAttribute getField_EventVariable();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtext.example.mydsl.esper2Maude.Field#getEventPropName <em>Event Prop Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Event Prop Name</em>'.
+   * @see org.xtext.example.mydsl.esper2Maude.Field#getEventPropName()
+   * @see #getField()
+   * @generated
+   */
+  EAttribute getField_EventPropName();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -486,12 +2092,80 @@ public interface Esper2MaudePackage extends EPackage
     EClass MODEL = eINSTANCE.getModel();
 
     /**
+     * The meta object literal for the '<em><b>Schemas</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODEL__SCHEMAS = eINSTANCE.getModel_Schemas();
+
+    /**
      * The meta object literal for the '<em><b>Patterns</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference MODEL__PATTERNS = eINSTANCE.getModel_Patterns();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.SchemaImpl <em>Schema</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.SchemaImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getSchema()
+     * @generated
+     */
+    EClass SCHEMA = eINSTANCE.getSchema();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SCHEMA__NAME = eINSTANCE.getSchema_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Prop</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SCHEMA__PROP = eINSTANCE.getSchema_Prop();
+
+    /**
+     * The meta object literal for the '<em><b>Props</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SCHEMA__PROPS = eINSTANCE.getSchema_Props();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.EventPropertyImpl <em>Event Property</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.EventPropertyImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getEventProperty()
+     * @generated
+     */
+    EClass EVENT_PROPERTY = eINSTANCE.getEventProperty();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EVENT_PROPERTY__NAME = eINSTANCE.getEventProperty_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EVENT_PROPERTY__TYPE = eINSTANCE.getEventProperty_Type();
 
     /**
      * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.PatternImpl <em>Pattern</em>}' class.
@@ -512,12 +2186,20 @@ public interface Esper2MaudePackage extends EPackage
     EAttribute PATTERN__NAME = eINSTANCE.getPattern_Name();
 
     /**
-     * The meta object literal for the '<em><b>Event</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Num</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute PATTERN__EVENT = eINSTANCE.getPattern_Event();
+    EAttribute PATTERN__NUM = eINSTANCE.getPattern_Num();
+
+    /**
+     * The meta object literal for the '<em><b>Event</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PATTERN__EVENT = eINSTANCE.getPattern_Event();
 
     /**
      * The meta object literal for the '<em><b>Select Entries</b></em>' containment reference list feature.
@@ -534,6 +2216,534 @@ public interface Esper2MaudePackage extends EPackage
      * @generated
      */
     EReference PATTERN__SELECT_ENTRY = eINSTANCE.getPattern_SelectEntry();
+
+    /**
+     * The meta object literal for the '<em><b>From Filter</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PATTERN__FROM_FILTER = eINSTANCE.getPattern_FromFilter();
+
+    /**
+     * The meta object literal for the '<em><b>Win</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PATTERN__WIN = eINSTANCE.getPattern_Win();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.WindowImpl <em>Window</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.WindowImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getWindow()
+     * @generated
+     */
+    EClass WINDOW = eINSTANCE.getWindow();
+
+    /**
+     * The meta object literal for the '<em><b>Type Time</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute WINDOW__TYPE_TIME = eINSTANCE.getWindow_TypeTime();
+
+    /**
+     * The meta object literal for the '<em><b>Num</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute WINDOW__NUM = eINSTANCE.getWindow_Num();
+
+    /**
+     * The meta object literal for the '<em><b>Type Batch</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute WINDOW__TYPE_BATCH = eINSTANCE.getWindow_TypeBatch();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.WhereFilterImpl <em>Where Filter</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.WhereFilterImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getWhereFilter()
+     * @generated
+     */
+    EClass WHERE_FILTER = eINSTANCE.getWhereFilter();
+
+    /**
+     * The meta object literal for the '<em><b>Filter Event L</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WHERE_FILTER__FILTER_EVENT_L = eINSTANCE.getWhereFilter_FilterEventL();
+
+    /**
+     * The meta object literal for the '<em><b>Filter Op L</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WHERE_FILTER__FILTER_OP_L = eINSTANCE.getWhereFilter_FilterOpL();
+
+    /**
+     * The meta object literal for the '<em><b>Timer</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute WHERE_FILTER__TIMER = eINSTANCE.getWhereFilter_Timer();
+
+    /**
+     * The meta object literal for the '<em><b>Num</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute WHERE_FILTER__NUM = eINSTANCE.getWhereFilter_Num();
+
+    /**
+     * The meta object literal for the '<em><b>Filter Op R</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WHERE_FILTER__FILTER_OP_R = eINSTANCE.getWhereFilter_FilterOpR();
+
+    /**
+     * The meta object literal for the '<em><b>Filter Event R</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference WHERE_FILTER__FILTER_EVENT_R = eINSTANCE.getWhereFilter_FilterEventR();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.FilterFromImpl <em>Filter From</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.FilterFromImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getFilterFrom()
+     * @generated
+     */
+    EClass FILTER_FROM = eINSTANCE.getFilterFrom();
+
+    /**
+     * The meta object literal for the '<em><b>Followed By</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FILTER_FROM__FOLLOWED_BY = eINSTANCE.getFilterFrom_FollowedBy();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FILTER_FROM__LEFT = eINSTANCE.getFilterFrom_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Op</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FILTER_FROM__OP = eINSTANCE.getFilterFrom_Op();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FILTER_FROM__RIGHT = eINSTANCE.getFilterFrom_Right();
+
+    /**
+     * The meta object literal for the '<em><b>Event Variable</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FILTER_FROM__EVENT_VARIABLE = eINSTANCE.getFilterFrom_EventVariable();
+
+    /**
+     * The meta object literal for the '<em><b>Event Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FILTER_FROM__EVENT_NAME = eINSTANCE.getFilterFrom_EventName();
+
+    /**
+     * The meta object literal for the '<em><b>Filter</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FILTER_FROM__FILTER = eINSTANCE.getFilterFrom_Filter();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.FollowedByImpl <em>Followed By</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.FollowedByImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getFollowedBy()
+     * @generated
+     */
+    EClass FOLLOWED_BY = eINSTANCE.getFollowedBy();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FOLLOWED_BY__LEFT = eINSTANCE.getFollowedBy_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FOLLOWED_BY__RIGHT = eINSTANCE.getFollowedBy_Right();
+
+    /**
+     * The meta object literal for the '<em><b>Where Filter</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FOLLOWED_BY__WHERE_FILTER = eINSTANCE.getFollowedBy_WhereFilter();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.SubFilterFollowedByImpl <em>Sub Filter Followed By</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.SubFilterFollowedByImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getSubFilterFollowedBy()
+     * @generated
+     */
+    EClass SUB_FILTER_FOLLOWED_BY = eINSTANCE.getSubFilterFollowedBy();
+
+    /**
+     * The meta object literal for the '<em><b>Event Variable</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SUB_FILTER_FOLLOWED_BY__EVENT_VARIABLE = eINSTANCE.getSubFilterFollowedBy_EventVariable();
+
+    /**
+     * The meta object literal for the '<em><b>Event Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SUB_FILTER_FOLLOWED_BY__EVENT_NAME = eINSTANCE.getSubFilterFollowedBy_EventName();
+
+    /**
+     * The meta object literal for the '<em><b>Filter</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SUB_FILTER_FOLLOWED_BY__FILTER = eINSTANCE.getSubFilterFollowedBy_Filter();
+
+    /**
+     * The meta object literal for the '<em><b>Every</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SUB_FILTER_FOLLOWED_BY__EVERY = eINSTANCE.getSubFilterFollowedBy_Every();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.EveryImpl <em>Every</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.EveryImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getEvery()
+     * @generated
+     */
+    EClass EVERY = eINSTANCE.getEvery();
+
+    /**
+     * The meta object literal for the '<em><b>Event Variable</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EVERY__EVENT_VARIABLE = eINSTANCE.getEvery_EventVariable();
+
+    /**
+     * The meta object literal for the '<em><b>Event Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EVERY__EVENT_NAME = eINSTANCE.getEvery_EventName();
+
+    /**
+     * The meta object literal for the '<em><b>Filter</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EVERY__FILTER = eINSTANCE.getEvery_Filter();
+
+    /**
+     * The meta object literal for the '<em><b>Filter From</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EVERY__FILTER_FROM = eINSTANCE.getEvery_FilterFrom();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.FilterEventImpl <em>Filter Event</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.FilterEventImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getFilterEvent()
+     * @generated
+     */
+    EClass FILTER_EVENT = eINSTANCE.getFilterEvent();
+
+    /**
+     * The meta object literal for the '<em><b>Filter Left Hand Side</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FILTER_EVENT__FILTER_LEFT_HAND_SIDE = eINSTANCE.getFilterEvent_FilterLeftHandSide();
+
+    /**
+     * The meta object literal for the '<em><b>Filter Op</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FILTER_EVENT__FILTER_OP = eINSTANCE.getFilterEvent_FilterOp();
+
+    /**
+     * The meta object literal for the '<em><b>Filter Right Hand Side</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FILTER_EVENT__FILTER_RIGHT_HAND_SIDE = eINSTANCE.getFilterEvent_FilterRightHandSide();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.FilterPartImpl <em>Filter Part</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.FilterPartImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getFilterPart()
+     * @generated
+     */
+    EClass FILTER_PART = eINSTANCE.getFilterPart();
+
+    /**
+     * The meta object literal for the '<em><b>Event Prop Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FILTER_PART__EVENT_PROP_NAME = eINSTANCE.getFilterPart_EventPropName();
+
+    /**
+     * The meta object literal for the '<em><b>Event Variable</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FILTER_PART__EVENT_VARIABLE = eINSTANCE.getFilterPart_EventVariable();
+
+    /**
+     * The meta object literal for the '<em><b>Neg</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FILTER_PART__NEG = eINSTANCE.getFilterPart_Neg();
+
+    /**
+     * The meta object literal for the '<em><b>Num</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FILTER_PART__NUM = eINSTANCE.getFilterPart_Num();
+
+    /**
+     * The meta object literal for the '<em><b>Dec</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FILTER_PART__DEC = eINSTANCE.getFilterPart_Dec();
+
+    /**
+     * The meta object literal for the '<em><b>Str</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FILTER_PART__STR = eINSTANCE.getFilterPart_Str();
+
+    /**
+     * The meta object literal for the '<em><b>T</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FILTER_PART__T = eINSTANCE.getFilterPart_T();
+
+    /**
+     * The meta object literal for the '<em><b>F</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FILTER_PART__F = eINSTANCE.getFilterPart_F();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.FilterOperatorImpl <em>Filter Operator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.FilterOperatorImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getFilterOperator()
+     * @generated
+     */
+    EClass FILTER_OPERATOR = eINSTANCE.getFilterOperator();
+
+    /**
+     * The meta object literal for the '<em><b>Comparison</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FILTER_OPERATOR__COMPARISON = eINSTANCE.getFilterOperator_Comparison();
+
+    /**
+     * The meta object literal for the '<em><b>Logical</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FILTER_OPERATOR__LOGICAL = eINSTANCE.getFilterOperator_Logical();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.ComparisonOperatorImpl <em>Comparison Operator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.ComparisonOperatorImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getComparisonOperator()
+     * @generated
+     */
+    EClass COMPARISON_OPERATOR = eINSTANCE.getComparisonOperator();
+
+    /**
+     * The meta object literal for the '<em><b>Gt</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COMPARISON_OPERATOR__GT = eINSTANCE.getComparisonOperator_Gt();
+
+    /**
+     * The meta object literal for the '<em><b>Ge</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COMPARISON_OPERATOR__GE = eINSTANCE.getComparisonOperator_Ge();
+
+    /**
+     * The meta object literal for the '<em><b>Eq</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COMPARISON_OPERATOR__EQ = eINSTANCE.getComparisonOperator_Eq();
+
+    /**
+     * The meta object literal for the '<em><b>Neq</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COMPARISON_OPERATOR__NEQ = eINSTANCE.getComparisonOperator_Neq();
+
+    /**
+     * The meta object literal for the '<em><b>Lt</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COMPARISON_OPERATOR__LT = eINSTANCE.getComparisonOperator_Lt();
+
+    /**
+     * The meta object literal for the '<em><b>Le</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COMPARISON_OPERATOR__LE = eINSTANCE.getComparisonOperator_Le();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.LogicalOperatorImpl <em>Logical Operator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.LogicalOperatorImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getLogicalOperator()
+     * @generated
+     */
+    EClass LOGICAL_OPERATOR = eINSTANCE.getLogicalOperator();
+
+    /**
+     * The meta object literal for the '<em><b>And</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute LOGICAL_OPERATOR__AND = eINSTANCE.getLogicalOperator_And();
+
+    /**
+     * The meta object literal for the '<em><b>Or</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute LOGICAL_OPERATOR__OR = eINSTANCE.getLogicalOperator_Or();
+
+    /**
+     * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.EventImpl <em>Event</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtext.example.mydsl.esper2Maude.impl.EventImpl
+     * @see org.xtext.example.mydsl.esper2Maude.impl.Esper2MaudePackageImpl#getEvent()
+     * @generated
+     */
+    EClass EVENT = eINSTANCE.getEvent();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EVENT__NAME = eINSTANCE.getEvent_Name();
 
     /**
      * The meta object literal for the '{@link org.xtext.example.mydsl.esper2Maude.impl.NonLastSelectEntryImpl <em>Non Last Select Entry</em>}' class.
@@ -616,12 +2826,28 @@ public interface Esper2MaudePackage extends EPackage
     EClass FIELD = eINSTANCE.getField();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Star</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute FIELD__NAME = eINSTANCE.getField_Name();
+    EAttribute FIELD__STAR = eINSTANCE.getField_Star();
+
+    /**
+     * The meta object literal for the '<em><b>Event Variable</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FIELD__EVENT_VARIABLE = eINSTANCE.getField_EventVariable();
+
+    /**
+     * The meta object literal for the '<em><b>Event Prop Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute FIELD__EVENT_PROP_NAME = eINSTANCE.getField_EventPropName();
 
   }
 

@@ -66,7 +66,21 @@ public class Esper2MaudeFactoryImpl extends EFactoryImpl implements Esper2MaudeF
     switch (eClass.getClassifierID())
     {
       case Esper2MaudePackage.MODEL: return createModel();
+      case Esper2MaudePackage.SCHEMA: return createSchema();
+      case Esper2MaudePackage.EVENT_PROPERTY: return createEventProperty();
       case Esper2MaudePackage.PATTERN: return createPattern();
+      case Esper2MaudePackage.WINDOW: return createWindow();
+      case Esper2MaudePackage.WHERE_FILTER: return createWhereFilter();
+      case Esper2MaudePackage.FILTER_FROM: return createFilterFrom();
+      case Esper2MaudePackage.FOLLOWED_BY: return createFollowedBy();
+      case Esper2MaudePackage.SUB_FILTER_FOLLOWED_BY: return createSubFilterFollowedBy();
+      case Esper2MaudePackage.EVERY: return createEvery();
+      case Esper2MaudePackage.FILTER_EVENT: return createFilterEvent();
+      case Esper2MaudePackage.FILTER_PART: return createFilterPart();
+      case Esper2MaudePackage.FILTER_OPERATOR: return createFilterOperator();
+      case Esper2MaudePackage.COMPARISON_OPERATOR: return createComparisonOperator();
+      case Esper2MaudePackage.LOGICAL_OPERATOR: return createLogicalOperator();
+      case Esper2MaudePackage.EVENT: return createEvent();
       case Esper2MaudePackage.NON_LAST_SELECT_ENTRY: return createNonLastSelectEntry();
       case Esper2MaudePackage.LAST_SELECT_ENTRY: return createLastSelectEntry();
       case Esper2MaudePackage.SELECT_ENTRY: return createSelectEntry();
@@ -92,10 +106,164 @@ public class Esper2MaudeFactoryImpl extends EFactoryImpl implements Esper2MaudeF
    * <!-- end-user-doc -->
    * @generated
    */
+  public Schema createSchema()
+  {
+    SchemaImpl schema = new SchemaImpl();
+    return schema;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EventProperty createEventProperty()
+  {
+    EventPropertyImpl eventProperty = new EventPropertyImpl();
+    return eventProperty;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Pattern createPattern()
   {
     PatternImpl pattern = new PatternImpl();
     return pattern;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Window createWindow()
+  {
+    WindowImpl window = new WindowImpl();
+    return window;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public WhereFilter createWhereFilter()
+  {
+    WhereFilterImpl whereFilter = new WhereFilterImpl();
+    return whereFilter;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FilterFrom createFilterFrom()
+  {
+    FilterFromImpl filterFrom = new FilterFromImpl();
+    return filterFrom;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FollowedBy createFollowedBy()
+  {
+    FollowedByImpl followedBy = new FollowedByImpl();
+    return followedBy;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SubFilterFollowedBy createSubFilterFollowedBy()
+  {
+    SubFilterFollowedByImpl subFilterFollowedBy = new SubFilterFollowedByImpl();
+    return subFilterFollowedBy;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Every createEvery()
+  {
+    EveryImpl every = new EveryImpl();
+    return every;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FilterEvent createFilterEvent()
+  {
+    FilterEventImpl filterEvent = new FilterEventImpl();
+    return filterEvent;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FilterPart createFilterPart()
+  {
+    FilterPartImpl filterPart = new FilterPartImpl();
+    return filterPart;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FilterOperator createFilterOperator()
+  {
+    FilterOperatorImpl filterOperator = new FilterOperatorImpl();
+    return filterOperator;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ComparisonOperator createComparisonOperator()
+  {
+    ComparisonOperatorImpl comparisonOperator = new ComparisonOperatorImpl();
+    return comparisonOperator;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public LogicalOperator createLogicalOperator()
+  {
+    LogicalOperatorImpl logicalOperator = new LogicalOperatorImpl();
+    return logicalOperator;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Event createEvent()
+  {
+    EventImpl event = new EventImpl();
+    return event;
   }
 
   /**

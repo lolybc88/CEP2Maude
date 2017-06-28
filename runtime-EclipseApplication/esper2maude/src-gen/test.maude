@@ -1,0 +1,209 @@
+(view Object from TRIV to CONFIGURATION is
+  sort Elt to Object .
+ endv)
+
+(omod MY_MODULE is
+
+*** All times in seconds
+
+****** IMPORTS
+pr CONFIGURATION .
+pr (LIST * (op __ to _;_)) {Object} .
+pr NAT-TIME-DOMAIN-WITH-INF .
+pr INT .
+pr QID .
+pr RAT .
+pr PROB-DISTR . 
+
+**** PARAMETERS
+op NUMEVENTS : -> Int . *** number of events. 
+*** If >0 it sets the upper limit. 
+*** If <0 there is no limit. Just the time bound gven by TIMELIMIT.
+*** eq NUMEVENTS = 1000 .
+eq NUMEVENTS = -1 .
+
+op ONEDAY : -> Time . *** One day in miliseconds
+eq ONEDAY = 86400 .
+
+op TIMELIMIT : -> Time . *** Time limit
+*** eq TIMELIMIT = NUMEVENTS * 1000 .
+*** eq TIMELIMIT = 1 * ONEDAY + 1 .
+eq TIMELIMIT = 5 + ONEDAY + 1 . *** One day
+
+op PRUNINGPERIOD : -> Time . *** Lifetime of events before moving to backup
+*** eq PRUNINGPERIOD = ONEDAY + 1 .
+eq PRUNINGPERIOD = 10 . *** 10 seconds
+
+
+**** BASIC SORTS
+subsort Int < Oid . *** To permit easy creation of fresh object identifiers
+subsort Qid < Oid .
+
+***** BASIC CLASSES
+class Event | ts : Time . *** Events with timeStamps
+
+op ts : Object -> Time .
+eq ts(< O : Event | ts : T >) = T .
+
+class Counter | n : Int . *** To create fresh object identifiers
+
+class Factory | npe : Int . *** Number of produced events
+
+class HistoryFactory | startTime : Time, 
+                       windowLength : Time,  *** duration of the window 
+                       lastEvent : Time *** To signal when the last event was detected
+                       .
+class SizeFactory |    startTime : Time, 
+                       windowLength : Int,  *** number of events in the window
+                       lastEvent : Time *** To signal when the last event was detected
+                       .
+class TimedFactory | wakeUpAt : Time .         *** To periocally generate events
+
+subclasses HistoryFactory SizeFactory TimedFactory < Factory .
+
+class Clock | time : Time . *** Global clock
+
+class Stream | events : List{Object} .  *** Stream of events
+class CGStream | eventscg : List{Object} . *** Stream of Coarse Grained events
+
+op insert : Object List{Object} -> List{Object} . *** insert ordered by timeStamp.
+eq insert (OB, nil) = OB .
+eq insert (OB1, (L ; OB2) ) = if ts(OB1) > ts(OB2) then L ; OB2 ; OB1
+                              else insert ( OB1, L ) ; OB2 fi .
+
+sort System .
+op `{_`} : Configuration -> System .
+
+****** REAL TIME
+vars Conf : Configuration .
+
+crl [tick] :
+{ Conf < C : Clock | time : NOW > }
+=>
+{ delta (Conf, T) < C : Clock | time : NOW + T > }
+if
+T := mte(Conf, NOW) /\ T > 0 /\ (NOW < TIMELIMIT ) *** TIMELIMIT is end of times
+.
+
+op mte : Configuration Time -> Time .
+eq mte(< O : TimedFactory | wakeUpAt : T1 > Conf, T2) = min( T1 - T2 , mte(Conf, T2) ) .
+eq mte(Conf, T) = INF [owise] .
+
+op delta : Configuration Time -> Configuration .
+eq delta(Conf, T) = Conf [owise] .
+
+*******************************************************
+**** APPLICATION SPECIFIC:
+
+****** VARIABLE DECLARATIONS
+vars C CO S : Oid . *** clock, counter, stream, factory Oids.
+vars O O1 O2 O3 O4 O5 O6 : Oid . *** general Oids.
+vars OB OB1 OB2 : Object .
+vars NOW T T1 T2 TLE : Time . *** times
+vars D : Time . *** durations
+vars L BL : List{Object} .
+vars N M Q I J N1 N2 : Int .
+
+class EventPruningFactory | period : Time, savedEvents : List{Object} .
+subclass EventPruningFactory < TimedFactory .
+
+****** RULES
+*** RULE FOR PRUNING EVENTS
+*** We use a backup stream in the factory
+
+rl [PruneEvents] : *** pruning of old events 
+< C : Clock | time : NOW >
+< S : Stream | events : L >
+< F : EventPruningFactory | period : T, savedEvents : BL, wakeUpAt : NOW, npe : J >
+=>
+< C : Clock | time : NOW >
+< S : Stream | events : removeOldEvents(L, NOW - T ) >
+< F : EventPruningFactory | period : T,  savedEvents : BL, wakeUpAt : NOW + T, npe : J > 
+*** < F : EventPruningFactory | period : T,  savedEvents : (addOldEvents(L, NOW - T) ; BL), wakeUpAt : NOW + T > 
+.
+
+*** this operation gets rid of those events whose timestamp is less than T
+op removeOldEvents : List{Object} Time -> List{Object} .
+eq removeOldEvents ( nil, T ) = nil .
+eq removeOldEvents ( (< O : Event | ts : T1 > ; L), T ) =
+    if (T1 >= T) then (< O : Event | ts : T1 > ; L) *** we make use of the fact that the list is sorted 
+    else removeOldEvents (L, T) 
+    fi .
+eq removeOldEvents ( (OB ; L), T ) =  removeOldEvents (L, T) [owise] .
+
+op addOldEvents : List{Object} Time -> List{Object} .
+eq addOldEvents ( nil, T ) = nil .
+eq addOldEvents ( (< O : Event | ts : T1 > ; L), T ) =
+    if (T1 < T) then (< O : Event | ts : T1 > ; addOldEvents(L, T)) *** we make use of the fact that the list is sorted 
+    else nil  
+    fi .
+eq addOldEvents ( (OB ; L), T ) =  addOldEvents (L, T) [owise] .
+
+***** EVENT CLASSES
+
+    class Motorbike | motorbikeid : Int, location : Qid, tirePreassure1 : Rat, seated : Bool .
+    subclass Motorbike < Event .
+    op motorbikeid : Object -> Int .
+    eq motorbikeid(< O : Motorbike | motorbikeid : N >) = N .
+    op location : Object -> Qid .
+    eq location(< O : Motorbike | location : N >) = N .
+    op tirePreassure1 : Object -> Rat .
+    eq tirePreassure1(< O : Motorbike | tirePreassure1 : N >) = N .
+    op seated : Object -> Bool .
+    eq seated(< O : Motorbike | seated : N >) = N .
+    
+    class MotorbikeFactory | id : Int .
+    subclass MotorbikeFactory < TimedFactory .
+    class AirMeasurement | stationTs : Rat, stationId : Int .
+    subclass AirMeasurement < Event .
+    op stationTs : Object -> Rat .
+    eq stationTs(< O : AirMeasurement | stationTs : N >) = N .
+    op stationId : Object -> Int .
+    eq stationId(< O : AirMeasurement | stationId : N >) = N .
+    
+    class AirMeasurementFactory | id : Int .
+    subclass AirMeasurementFactory < TimedFactory .
+    
+    class BlowOutTire | motorbikeid : Int, preassure : Rat .
+    subclass BlowOutTire < Event .
+    op motorbikeid : Object -> Int .
+    eq motorbikeid(< O : BlowOutTire | motorbikeid : N >) = N .
+    op preassure : Object -> Rat .
+    eq preassure(< O : BlowOutTire | preassure : N >) = N .
+    
+    class BlowOutTireFactory | *** USER DEFINED *** .
+    subclass BlowOutTireFactory < HistoryFactory .
+    
+    ************************************
+    ************** RULES ***************
+    ************************************
+    crl [BlowOutTire] :
+    < C : Clock | time : NOW >
+    < CO : Counter | n : N >
+    < S : Stream | events : L >
+    < F : BlowOutTireFactory | *** USER DEFINED *** >
+    =>
+    < C : Clock | time : NOW >
+    < CO : Counter | n : N + 1 >
+    < S : Stream | events : insert( < N + 1 : BlowOutTire |
+    	motorbikeid : VAR_BlowOutTire_0,
+    	preassure : VAR_BlowOutTire_1 >, L ) >
+    < F : BlowOutTireFactory | *** USER DEFINED ***  >
+    if 
+    	VAR_BlowOutTire_0 := *** USER DEFINED *** /\
+    	VAR_BlowOutTire_1 := *** USER DEFINED ***
+    .
+********* INITIAL MODEL
+op InitialModel : -> System .
+eq InitialModel
+  = {
+  < 'c : Clock | time : 0 >
+  < 'e : Stream | events : nil >
+  < 'f : CGStream | eventscg : nil >
+  < 'x : Counter | n : 1000 >
+*** we create the factories
+  < 'p : EventPruningFactory | period : PRUNINGPERIOD, savedEvents : nil, wakeUpAt : PRUNINGPERIOD, npe : 0 >
+< 'f0 : BlowOutTireFactory | *** USER DEFINED ***, startTime : 0, npe : 0, windowLength : 5, lastEvent : 0 > 
+} .
+endom)
+eof

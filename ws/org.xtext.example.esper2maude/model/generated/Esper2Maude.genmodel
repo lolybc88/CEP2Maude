@@ -7,13 +7,99 @@
   <genPackages prefix="Esper2Maude" basePackage="org.xtext.example.mydsl" disposableProviderFactory="true"
       fileExtensions="em" ecorePackage="Esper2Maude.ecore#/">
     <genClasses ecoreClass="Esper2Maude.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//Model/schemas"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//Model/patterns"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//Schema">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Schema/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//Schema/prop"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//Schema/props"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//EventProperty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//EventProperty/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//EventProperty/type"/>
     </genClasses>
     <genClasses ecoreClass="Esper2Maude.ecore#//Pattern">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Pattern/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Pattern/event"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Pattern/num"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//Pattern/event"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//Pattern/selectEntries"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//Pattern/selectEntry"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//Pattern/fromFilter"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//Pattern/win"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//Window">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Window/typeTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Window/num"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Window/typeBatch"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//WhereFilter">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//WhereFilter/filterEventL"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//WhereFilter/filterOpL"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//WhereFilter/timer"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//WhereFilter/num"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//WhereFilter/filterOpR"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//WhereFilter/filterEventR"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//FilterFrom">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FilterFrom/followedBy"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FilterFrom/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FilterFrom/op"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FilterFrom/right"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//FilterFrom/eventVariable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//FilterFrom/eventName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FilterFrom/filter"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//FollowedBy">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FollowedBy/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FollowedBy/right"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FollowedBy/whereFilter"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//SubFilterFollowedBy">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//SubFilterFollowedBy/eventVariable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//SubFilterFollowedBy/eventName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//SubFilterFollowedBy/filter"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//SubFilterFollowedBy/every"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//Every">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Every/eventVariable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Every/eventName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//Every/filter"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//Every/filterFrom"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//FilterEvent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FilterEvent/filterLeftHandSide"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FilterEvent/filterOp"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FilterEvent/filterRightHandSide"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//FilterPart">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//FilterPart/eventPropName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//FilterPart/eventVariable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//FilterPart/neg"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//FilterPart/num"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//FilterPart/dec"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//FilterPart/str"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//FilterPart/t"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//FilterPart/f"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//FilterOperator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FilterOperator/comparison"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//FilterOperator/logical"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//ComparisonOperator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//ComparisonOperator/gt"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//ComparisonOperator/ge"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//ComparisonOperator/eq"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//ComparisonOperator/neq"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//ComparisonOperator/lt"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//ComparisonOperator/le"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//LogicalOperator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//LogicalOperator/and"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//LogicalOperator/or"/>
+    </genClasses>
+    <genClasses ecoreClass="Esper2Maude.ecore#//Event">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Event/name"/>
     </genClasses>
     <genClasses ecoreClass="Esper2Maude.ecore#//NonLastSelectEntry">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Esper2Maude.ecore#//NonLastSelectEntry/entry"/>
@@ -27,7 +113,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//SelectEntry/groupOp"/>
     </genClasses>
     <genClasses ecoreClass="Esper2Maude.ecore#//Field">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Field/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Field/star"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Field/eventVariable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Esper2Maude.ecore#//Field/eventPropName"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

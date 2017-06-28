@@ -21,7 +21,9 @@ import org.xtext.example.mydsl.esper2Maude.Field;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.FieldImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.FieldImpl#getStar <em>Star</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.FieldImpl#getEventVariable <em>Event Variable</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.impl.FieldImpl#getEventPropName <em>Event Prop Name</em>}</li>
  * </ul>
  *
  * @generated
@@ -29,24 +31,64 @@ import org.xtext.example.mydsl.esper2Maude.Field;
 public class FieldImpl extends MinimalEObjectImpl.Container implements Field
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The default value of the '{@link #getStar() <em>Star</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getStar()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
+  protected static final String STAR_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getStar() <em>Star</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getStar()
    * @generated
    * @ordered
    */
-  protected String name = NAME_EDEFAULT;
+  protected String star = STAR_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getEventVariable() <em>Event Variable</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getEventVariable()
+   * @generated
+   * @ordered
+   */
+  protected static final String EVENT_VARIABLE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getEventVariable() <em>Event Variable</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getEventVariable()
+   * @generated
+   * @ordered
+   */
+  protected String eventVariable = EVENT_VARIABLE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getEventPropName() <em>Event Prop Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getEventPropName()
+   * @generated
+   * @ordered
+   */
+  protected static final String EVENT_PROP_NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getEventPropName() <em>Event Prop Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getEventPropName()
+   * @generated
+   * @ordered
+   */
+  protected String eventPropName = EVENT_PROP_NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -74,9 +116,9 @@ public class FieldImpl extends MinimalEObjectImpl.Container implements Field
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public String getStar()
   {
-    return name;
+    return star;
   }
 
   /**
@@ -84,12 +126,58 @@ public class FieldImpl extends MinimalEObjectImpl.Container implements Field
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  public void setStar(String newStar)
   {
-    String oldName = name;
-    name = newName;
+    String oldStar = star;
+    star = newStar;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, Esper2MaudePackage.FIELD__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, Esper2MaudePackage.FIELD__STAR, oldStar, star));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getEventVariable()
+  {
+    return eventVariable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setEventVariable(String newEventVariable)
+  {
+    String oldEventVariable = eventVariable;
+    eventVariable = newEventVariable;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, Esper2MaudePackage.FIELD__EVENT_VARIABLE, oldEventVariable, eventVariable));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getEventPropName()
+  {
+    return eventPropName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setEventPropName(String newEventPropName)
+  {
+    String oldEventPropName = eventPropName;
+    eventPropName = newEventPropName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, Esper2MaudePackage.FIELD__EVENT_PROP_NAME, oldEventPropName, eventPropName));
   }
 
   /**
@@ -102,8 +190,12 @@ public class FieldImpl extends MinimalEObjectImpl.Container implements Field
   {
     switch (featureID)
     {
-      case Esper2MaudePackage.FIELD__NAME:
-        return getName();
+      case Esper2MaudePackage.FIELD__STAR:
+        return getStar();
+      case Esper2MaudePackage.FIELD__EVENT_VARIABLE:
+        return getEventVariable();
+      case Esper2MaudePackage.FIELD__EVENT_PROP_NAME:
+        return getEventPropName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -118,8 +210,14 @@ public class FieldImpl extends MinimalEObjectImpl.Container implements Field
   {
     switch (featureID)
     {
-      case Esper2MaudePackage.FIELD__NAME:
-        setName((String)newValue);
+      case Esper2MaudePackage.FIELD__STAR:
+        setStar((String)newValue);
+        return;
+      case Esper2MaudePackage.FIELD__EVENT_VARIABLE:
+        setEventVariable((String)newValue);
+        return;
+      case Esper2MaudePackage.FIELD__EVENT_PROP_NAME:
+        setEventPropName((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -135,8 +233,14 @@ public class FieldImpl extends MinimalEObjectImpl.Container implements Field
   {
     switch (featureID)
     {
-      case Esper2MaudePackage.FIELD__NAME:
-        setName(NAME_EDEFAULT);
+      case Esper2MaudePackage.FIELD__STAR:
+        setStar(STAR_EDEFAULT);
+        return;
+      case Esper2MaudePackage.FIELD__EVENT_VARIABLE:
+        setEventVariable(EVENT_VARIABLE_EDEFAULT);
+        return;
+      case Esper2MaudePackage.FIELD__EVENT_PROP_NAME:
+        setEventPropName(EVENT_PROP_NAME_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -152,8 +256,12 @@ public class FieldImpl extends MinimalEObjectImpl.Container implements Field
   {
     switch (featureID)
     {
-      case Esper2MaudePackage.FIELD__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case Esper2MaudePackage.FIELD__STAR:
+        return STAR_EDEFAULT == null ? star != null : !STAR_EDEFAULT.equals(star);
+      case Esper2MaudePackage.FIELD__EVENT_VARIABLE:
+        return EVENT_VARIABLE_EDEFAULT == null ? eventVariable != null : !EVENT_VARIABLE_EDEFAULT.equals(eventVariable);
+      case Esper2MaudePackage.FIELD__EVENT_PROP_NAME:
+        return EVENT_PROP_NAME_EDEFAULT == null ? eventPropName != null : !EVENT_PROP_NAME_EDEFAULT.equals(eventPropName);
     }
     return super.eIsSet(featureID);
   }
@@ -169,8 +277,12 @@ public class FieldImpl extends MinimalEObjectImpl.Container implements Field
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
+    result.append(" (star: ");
+    result.append(star);
+    result.append(", eventVariable: ");
+    result.append(eventVariable);
+    result.append(", eventPropName: ");
+    result.append(eventPropName);
     result.append(')');
     return result.toString();
   }

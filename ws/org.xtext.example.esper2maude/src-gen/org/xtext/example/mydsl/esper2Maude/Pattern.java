@@ -17,9 +17,12 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.xtext.example.mydsl.esper2Maude.Pattern#getName <em>Name</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.Pattern#getNum <em>Num</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.esper2Maude.Pattern#getEvent <em>Event</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.esper2Maude.Pattern#getSelectEntries <em>Select Entries</em>}</li>
  *   <li>{@link org.xtext.example.mydsl.esper2Maude.Pattern#getSelectEntry <em>Select Entry</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.Pattern#getFromFilter <em>From Filter</em>}</li>
+ *   <li>{@link org.xtext.example.mydsl.esper2Maude.Pattern#getWin <em>Win</em>}</li>
  * </ul>
  *
  * @see org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage#getPattern()
@@ -55,30 +58,56 @@ public interface Pattern extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Event</b></em>' attribute.
+   * Returns the value of the '<em><b>Num</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Event</em>' attribute isn't clear,
+   * If the meaning of the '<em>Num</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Event</em>' attribute.
-   * @see #setEvent(String)
-   * @see org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage#getPattern_Event()
+   * @return the value of the '<em>Num</em>' attribute.
+   * @see #setNum(int)
+   * @see org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage#getPattern_Num()
    * @model
    * @generated
    */
-  String getEvent();
+  int getNum();
 
   /**
-   * Sets the value of the '{@link org.xtext.example.mydsl.esper2Maude.Pattern#getEvent <em>Event</em>}' attribute.
+   * Sets the value of the '{@link org.xtext.example.mydsl.esper2Maude.Pattern#getNum <em>Num</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Event</em>' attribute.
+   * @param value the new value of the '<em>Num</em>' attribute.
+   * @see #getNum()
+   * @generated
+   */
+  void setNum(int value);
+
+  /**
+   * Returns the value of the '<em><b>Event</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Event</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Event</em>' containment reference.
+   * @see #setEvent(Event)
+   * @see org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage#getPattern_Event()
+   * @model containment="true"
+   * @generated
+   */
+  Event getEvent();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.esper2Maude.Pattern#getEvent <em>Event</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Event</em>' containment reference.
    * @see #getEvent()
    * @generated
    */
-  void setEvent(String value);
+  void setEvent(Event value);
 
   /**
    * Returns the value of the '<em><b>Select Entries</b></em>' containment reference list.
@@ -121,5 +150,57 @@ public interface Pattern extends EObject
    * @generated
    */
   void setSelectEntry(LastSelectEntry value);
+
+  /**
+   * Returns the value of the '<em><b>From Filter</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>From Filter</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>From Filter</em>' containment reference.
+   * @see #setFromFilter(FilterFrom)
+   * @see org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage#getPattern_FromFilter()
+   * @model containment="true"
+   * @generated
+   */
+  FilterFrom getFromFilter();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.esper2Maude.Pattern#getFromFilter <em>From Filter</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>From Filter</em>' containment reference.
+   * @see #getFromFilter()
+   * @generated
+   */
+  void setFromFilter(FilterFrom value);
+
+  /**
+   * Returns the value of the '<em><b>Win</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Win</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Win</em>' containment reference.
+   * @see #setWin(Window)
+   * @see org.xtext.example.mydsl.esper2Maude.Esper2MaudePackage#getPattern_Win()
+   * @model containment="true"
+   * @generated
+   */
+  Window getWin();
+
+  /**
+   * Sets the value of the '{@link org.xtext.example.mydsl.esper2Maude.Pattern#getWin <em>Win</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Win</em>' containment reference.
+   * @see #getWin()
+   * @generated
+   */
+  void setWin(Window value);
 
 } // Pattern
